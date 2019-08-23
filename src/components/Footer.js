@@ -1,28 +1,13 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Button from '../components/Button';
+import { padding } from '../styles/sizes';
 
 export default class Footer extends Component {
     render() {
         return (
             <View style={styles.footer}>   
-                <Button {...this.props} 
-                    icon={(
-                        <Icon name={this.props.iconName} 
-                            size={32} 
-                            color="#fff"
-                            style={{marginRight: 8}} 
-                        />
-                    )}
-                    buttonStyle={{
-                        backgroundColor: "#22dd22",
-                    }}
-                    titleStyle={{
-                        fontWeight: "bold",
-                        fontSize: 20
-                    }}
-                />
+                <Button {...this.props} />
             </View>
         );
     }
@@ -30,6 +15,6 @@ export default class Footer extends Component {
 
 const styles = StyleSheet.create({
     footer: {
-        padding: 16,
+       padding,
     },
 })

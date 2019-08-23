@@ -1,66 +1,56 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, KeyboardAvoidingView, TextInput, TouchableOpacity, StyleSheet, Text, AsyncStorage } from 'react-native';
-import { ListItem, Button } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import API from '../services/api';
 import FMT from '../helpers/formater';
+import TextIcon from '../components/TextIcon';
+import Button from '../components/Button';
+import { marginLg } from '../styles/sizes';
 
 
-export default class PacientInfo extends Component{
+class PacientInfo extends Component{
     static navigationOptions = {
         title: "Menu do Paciente"
     }
 
-    state = {
-        cpf: "",
-        born_at: "",
-        entrou: false
-    }
-
     infoList = [
         {
-            info: 'name',
-            icon: <Icon name="person" size={24} color="#000" />
+            title: this.props.selectedUser.name,
+            leftIcon: <TextIcon name="person"/>
         },
         {
-            info: 'cpf',
-            icon: <Icon name="credit-card" size={24} color="#000" />
+            title: FMT.formatCPF(this.props.selectedUser.cpf),
+            leftIcon: <TextIcon name="credit-card"/>
         },
         {
-            info: 'born_at',
-            icon: <Icon name="date-range" size={24} color="#000" />
+            title: FMT.dateDBReal(this.props.selectedUser.born_at),
+            leftIcon: <TextIcon name="date-range"/>
         },
         {
-            info: 'address',
-            icon: <Icon name="home" size={24} color="#000" />
+            title: this.props.selectedUser.address,
+            leftIcon: <TextIcon name="home"/>
         }
     ]
 
     actionsList = [
         {
             title: "Historico",
-            icon: <Icon name="format-align-justify" size={32} color="#FFF" style={{marginRight: 8}}  />,
+            iconName: "format-align-justify",
             action: this.handle
         },
         {
             title: "Lesoes",
-            icon: <Icon name="local-hospital" size={32} color="#FFF" style={{marginRight: 8}}  />,
+            iconName: "local-hospital",
             action: this.handle
         },
         {
             title: "Grafico",
-            icon: <Icon name="assessment" size={32} color="#FFF" style={{marginRight: 8}}  />,
+            iconName: "assessment",
             action: this.handle
         }
         
     ]
-
-    pacient = {
-        name: 'Joao da Silva',
-        cpf: FMT.formatCPF('12345678915'),
-        born_at: FMT.formatDate('2019-11-10'.split('-').reverse().join('').replace(/-/g, '')),
-        address: 'Rua da Saudade, 199'
-    }
 
     handle = () => {
 
@@ -70,34 +60,11 @@ export default class PacientInfo extends Component{
         return (
             <View style={styles.center}>
                 {
-                    this.infoList.map( (item, i) => {
-                        return (
-                            <ListItem 
-                                key={i}
-                                title={this.pacient[item.info]}
-                                leftIcon={item.icon}
-                            />
-                        )
-                    })
+                    this.infoList.map( (item, i) => <ListItem key={i} {...item} /> )
                 }
                 <View style={styles.container}>
                 {
-                    this.actionsList.map( (item, i) => {
-                        return (
-                            <Button {...item} 
-                                key={i}
-                                buttonStyle={{
-                                    backgroundColor: "#22dd22",
-                                    marginBottom: 16
-                                }}
-                                titleStyle={{
-                                    fontWeight: "bold",
-                                    fontSize: 20
-                                }}
-                                raised={true}
-                            />
-                        )
-                    })
+                    this.actionsList.map( (item, i) => <Button {...item} key={i} raised={true} containerStyle={{marginBottom: 16}} /> )
                 }     
                 </View>           
             </View>
@@ -108,31 +75,19 @@ export default class PacientInfo extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginLeft: 16,
-        marginRight: 16,
+        marginLeft: marginLg,
+        marginRight: marginLg,
     },
     center: {
         flex: 1,
-    },
-    button: {
-        backgroundColor: "#27ae60",
-        borderColor: "#278e60",
-        borderWidth: 2,
-        alignSelf: "stretch",
-        textAlign: "center",
-        padding: 16
-    },
-    inputContainer: {
-        marginBottom: 16, 
-        borderColor: "#cecece", 
-        borderWidth: 1, 
-        borderRadius: 4, 
-        paddingBottom: 8
-    },
-    inputLabel: {
-        color: "#000"
-    },
-    input: {
-        paddingBottom: 0,
     }
 })
+
+
+const mapStateToProps = state => {
+    return {
+        selectedUser: state.selectedUser
+    }
+}
+
+export default connect(mapStateToProps)(PacientInfo);

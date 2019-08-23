@@ -16,12 +16,23 @@ function mask(pattern, newValue, currentValue) {
     masked = masked.substring(0, masked.indexOf("#") > -1 ? masked.indexOf("#") : 99 );
     return masked;
 }
-export default {
+const resources = {
     formatCPF: (newValue, currentValue = null) => {
         return mask("###.###.###-##", newValue, currentValue);
     },
     formatDate: (newValue, currentValue) => {
         return mask("##/##/####", newValue, currentValue);
     },
+    dateDBReal: (date) => {
+        return date.split('-').reverse().join('/');
+    },
+    dateRealDB: (date) => {
+        return date.split('/').reverse().join('-');
+    },
+    clearString: (string) => {
+        return string.replace(/\.|-|\//);
+    },
     mask
 }
+
+export default resources;

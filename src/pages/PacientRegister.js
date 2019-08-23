@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { View, KeyboardAvoidingView, TextInput, TouchableOpacity, StyleSheet, Text, AsyncStorage } from 'react-native';
-import { Input } from 'react-native-elements';
+import Input from '../components/Input';
 import Footer from '../components/Footer';
 import API from '../services/api';
 import FMT from '../helpers/formater';
+import { marginLg } from '../styles/sizes';
 
 
 export default class Login extends Component{
@@ -47,8 +48,8 @@ export default class Login extends Component{
         return {
             name,
             address,
-            cpf: cpf.replace(/\.|-/g, ''),
-            born_at: born_at.split("/").reverse().join("-")
+            cpf: FMT.clearString(cpf),
+            born_at: FMT.dateRealDB(born_at)
         }
     }
 
@@ -60,21 +61,14 @@ export default class Login extends Component{
                         <Input
                             placeholder='Ex.: Antonio Bezerra'
                             label="Nome"
-                            placeholderTextColor="#cecece"
-                            containerStyle={styles.inputContainer}
-                            inputStyle={styles.input}
-                            labelStyle={styles.inputLabel}
                             onChangeText={value => this.handleChange('name', value)}
                             value={this.state.name}
                             maxLength={50}
+                            errorMessage="deu Ruim"
                         />
                         <Input
                             placeholder='Ex.: 123.456.789-10'
                             label="CPF"
-                            placeholderTextColor="#cecece"
-                            containerStyle={styles.inputContainer}
-                            inputStyle={styles.input}
-                            labelStyle={styles.inputLabel}
                             onChangeText={value => this.handleChange('cpf', value)}
                             value={this.state.cpf}
                             maxLength={14}
@@ -82,10 +76,6 @@ export default class Login extends Component{
                         <Input
                             placeholder='Ex.: 01/01/2000'
                             label="Data de Nascimento"
-                            placeholderTextColor="#cecece"
-                            containerStyle={styles.inputContainer}
-                            inputStyle={styles.input}
-                            labelStyle={styles.inputLabel}
                             onChangeText={value => this.handleChange('born_at', value)}
                             value={this.state.born_at}
                             maxLength={10}
@@ -93,10 +83,6 @@ export default class Login extends Component{
                         <Input
                             placeholder='Ex.: Rua do Amanhecer, 190'
                             label="Endereco"
-                            placeholderTextColor="#cecece"
-                            containerStyle={styles.inputContainer}
-                            inputStyle={styles.input}
-                            labelStyle={styles.inputLabel}
                             onChangeText={value => this.handleChange('address', value)}
                             value={this.state.address}
                             maxLength={100}
@@ -113,31 +99,10 @@ export default class Login extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginLeft: 16,
-        marginRight: 16,
+        marginLeft: marginLg,
+        marginRight: marginLg,
     },
     center: {
         flex: 1,
-    },
-    button: {
-        backgroundColor: "#27ae60",
-        borderColor: "#278e60",
-        borderWidth: 2,
-        alignSelf: "stretch",
-        textAlign: "center",
-        padding: 16
-    },
-    inputContainer: {
-        marginBottom: 16, 
-        borderColor: "#cecece", 
-        borderWidth: 1, 
-        borderRadius: 4, 
-        paddingBottom: 8
-    },
-    inputLabel: {
-        color: "#000"
-    },
-    input: {
-        paddingBottom: 0,
     }
 })

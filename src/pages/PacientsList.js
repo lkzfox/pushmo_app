@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { View, FlatList, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { ListItem, SearchBar } from 'react-native-elements';
 import API from '../services/api';
 import FMT from '../helpers/formater';
 import Footer from '../components/Footer';
 
-export default class PacientsList extends Component {
+class PacientsList extends Component {
     static navigationOptions = {
         header: null
     }
@@ -19,7 +21,7 @@ export default class PacientsList extends Component {
     }
 
     componentDidMount() {
-        this.handleSearch();                            
+        this.handleSearch();
     }
 
     handleChange = search => {
@@ -29,7 +31,7 @@ export default class PacientsList extends Component {
             timeout: setTimeout(() => {
                 this.handleSearch()
                 this.setState({ isLoading: true });
-            }, 2000)
+            }, 1300)
         })
     }
 
@@ -45,10 +47,11 @@ export default class PacientsList extends Component {
     }
 
     handleRegister = () => {
-        this.props.navigation.navigate('PacientInfo');
+        this.props.navigation.navigate('PacientRegister');
     }
 
     handleSelectPacient = pacient => {        
+        this.props.selectUser(pacient);
         this.props.navigation.navigate('PacientInfo');
     }
 
@@ -103,23 +106,7 @@ const styles = StyleSheet.create({
     list: {
         flex: 1,
         alignSelf: "stretch"
-    },
-    searchBox: {
-        flexDirection: "row",
-        marginLeft: 16,
-        marginRight: 16,
-        marginBottom: 16,
-    },
-    searchInput: {  
-        flex: 1,      
-        borderBottomWidth: 1,
-        borderBottomColor: "#9e9e9e",
-        alignSelf: "stretch",
-        fontSize: 16,
-        paddingBottom: 4,
-        paddingLeft: 4
-    },
-    searchIcon: {
-        alignSelf: "center"
     }
 })
+
+export default connect(null, actions)(PacientsList);
