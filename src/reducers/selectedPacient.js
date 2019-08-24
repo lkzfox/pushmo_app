@@ -1,8 +1,8 @@
-import { SELECT_USER } from '../actions/constants';
+import { SELECT_PACIENT } from '../actions/constants';
 
 export default (state = {}, action) => {
     
-    if (action.type === SELECT_USER) {
+    if (action.type === SELECT_PACIENT) {
         return action.payload;
     }
 

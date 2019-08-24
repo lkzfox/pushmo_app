@@ -6,27 +6,25 @@ import FMT from '../helpers/formater';
 import TextIcon from '../components/TextIcon';
 import Button from '../components/Button';
 import { marginLg } from '../styles/sizes';
-import { HeaderBackButton } from 'react-navigation';
-import { StackActions } from 'react-navigation';
 
 
 class PacientInfo extends Component{
 
     infoList = [
         {
-            title: this.props.selectedUser.name,
+            title: this.props.selectedPacient.name,
             leftIcon: <TextIcon name="person"/>
         },
         {
-            title: FMT.formatCPF(this.props.selectedUser.cpf),
+            title: FMT.formatCPF(this.props.selectedPacient.cpf),
             leftIcon: <TextIcon name="credit-card"/>
         },
         {
-            title: FMT.dateDBReal(this.props.selectedUser.born_at),
+            title: FMT.dateDBReal(this.props.selectedPacient.born_at),
             leftIcon: <TextIcon name="date-range"/>
         },
         {
-            title: this.props.selectedUser.address,
+            title: this.props.selectedPacient.address,
             leftIcon: <TextIcon name="home"/>
         }
     ]
@@ -84,7 +82,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        selectedUser: state.selectedUser
+        selectedPacient: state.selectedPacient
     }
 }
 

@@ -55,8 +55,7 @@ class PacientRegister extends Component{
 
         API.post('/pacients', formatedFields)
         .then( res => {
-            this.setState({ entrou: JSON.stringify(res.data) })
-            this.props.selectUser(res.data.data);
+            this.props.selectPacient(res.data.data);
             this.props.navigation.navigate('PacientInfo');
         })
         .catch( err => {
@@ -162,7 +161,6 @@ class PacientRegister extends Component{
                             maxLength={100}
                         />
                     </View>
-                    <Text>{this.state.entrou + ""}</Text>
                 </KeyboardAvoidingView>
                 <Footer title="Salvar" iconName="save" onPress={this.handleSave} loading={this.state.isLoading} />
                 <Message 

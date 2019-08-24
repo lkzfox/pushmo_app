@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import selectedUser from './selectedUser';
+import selectedPacient from './selectedPacient';
 
 export default combineReducers({
-    selectedUser,
+    selectedPacient,
 });

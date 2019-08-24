@@ -9,7 +9,6 @@ import FMT from '../helpers/formater';
 import Footer from '../components/Footer';
 import { buttonIcon } from '../styles/sizes';
 import { fontColor } from '../styles/colors';
-import Message from '../components/Message';
 
 class PacientsList extends Component {
     static navigationOptions = {
@@ -55,7 +54,7 @@ class PacientsList extends Component {
     }
 
     handleSelectPacient = pacient => {        
-        this.props.selectUser(pacient);
+        this.props.selectPacient(pacient);
         this.props.navigation.navigate('PacientInfo');
     }
 
@@ -64,7 +63,7 @@ class PacientsList extends Component {
             <ListItem
                 title={item.name}
                 subtitle={FMT.formatCPF(item.cpf)}
-                leftIcon={(<Icon name="person" size={32} color="#000" />)}
+                leftIcon={(<Icon name="person" size={buttonIcon} color={fontColor} />)}
                 chevron={true}
                 bottomDivider={true}
                 onPress={() => this.handleSelectPacient(item)}

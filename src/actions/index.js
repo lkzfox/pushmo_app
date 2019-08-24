@@ -1,1 +1,1 @@
-export {selectUser} from './selectUser';
+export {selectPacient} from './selectPacient';

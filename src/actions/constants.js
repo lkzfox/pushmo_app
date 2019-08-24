@@ -1,1 +1,1 @@
-export const SELECT_USER = "select_user";
+export const SELECT_PACIENT = "select_pacient";
