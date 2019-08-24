@@ -7,6 +7,9 @@ import { ListItem, SearchBar } from 'react-native-elements';
 import API from '../services/api';
 import FMT from '../helpers/formater';
 import Footer from '../components/Footer';
+import { buttonIcon } from '../styles/sizes';
+import { fontColor } from '../styles/colors';
+import Message from '../components/Message';
 
 class PacientsList extends Component {
     static navigationOptions = {
@@ -18,6 +21,7 @@ class PacientsList extends Component {
         search: '',
         timeout: null,
         isLoading: false,
+        isVisible: true,
     }
 
     componentDidMount() {
@@ -72,18 +76,18 @@ class PacientsList extends Component {
         return (
             <View style={styles.container}>
                 <View>
-                <SearchBar
-                    placeholder="Buscar nome/cpf..."
-                    onChangeText={this.handleChange}
-                    value={this.state.search}
-                    showLoading={this.state.isLoading}
-                    lightTheme={true}
-                    loadingProps={{
-                        color: "#000",
-                        size: 32
-                    }}
-                    inputStyle={{color: "#000"}}
-                />
+                    <SearchBar
+                        placeholder="Buscar nome/cpf..."
+                        onChangeText={this.handleChange}
+                        value={this.state.search}
+                        showLoading={this.state.isLoading}
+                        lightTheme={true}
+                        loadingProps={{
+                            color: fontColor,
+                            size: buttonIcon
+                        }}
+                        inputStyle={{color: fontColor}}
+                    />
                 </View>
                 <View style={styles.list}>
                     <FlatList

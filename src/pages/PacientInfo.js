@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, KeyboardAvoidingView, TextInput, TouchableOpacity, StyleSheet, Text, AsyncStorage } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { ListItem } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import FMT from '../helpers/formater';
 import TextIcon from '../components/TextIcon';
 import Button from '../components/Button';
 import { marginLg } from '../styles/sizes';
+import { HeaderBackButton } from 'react-navigation';
+import { StackActions } from 'react-navigation';
 
 
 class PacientInfo extends Component{
-    static navigationOptions = {
-        title: "Menu do Paciente"
-    }
 
     infoList = [
         {

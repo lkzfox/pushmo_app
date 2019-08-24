@@ -1,9 +1,16 @@
-import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import React from 'react';
+import { createAppContainer, createStackNavigator, createSwitchNavigator, HeaderBackButton } from 'react-navigation';
 
 import Login from './pages/Login';
 import PacientsList from './pages/PacientsList';
 import PacientRegister from './pages/PacientRegister';
 import PacientInfo from './pages/PacientInfo';
+
+const PacientInfoNavigationOptions = ({ navigation }) => ({
+    headerLeft: <HeaderBackButton onPress={() => navigation.popToTop()} />,
+    title: 'Menu do Paciente'
+})
+
 
 const Routes = createAppContainer(
     createSwitchNavigator({
@@ -11,7 +18,10 @@ const Routes = createAppContainer(
         LoggedRoutes: createStackNavigator({
             PacientsList,
             PacientRegister,
-            PacientInfo,
+            PacientInfo: {
+                screen: PacientInfo,
+                navigationOptions: PacientInfoNavigationOptions
+            },
         })
     })
 );

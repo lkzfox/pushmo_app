@@ -30,7 +30,7 @@ const resources = {
         return date.split('/').reverse().join('-');
     },
     clearString: (string) => {
-        return string.replace(/\.|-|\//);
+        return string.replace(/\.|-|\//g,'');
     },
     mask
 }

@@ -4,7 +4,7 @@ import { buttonIconColor, buttonColor } from '../styles/colors';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default (props) => <Button {...props} 
+export default (props) => <Button  
     icon={(
         <Icon name={props.iconName} 
             size={buttonIcon} 
@@ -19,4 +19,8 @@ export default (props) => <Button {...props}
         fontWeight: "bold",
         fontSize: buttonFont
     }}
+    loadingProps={{
+        size: buttonIcon
+    }}
+    {...props}
 />
