@@ -11,6 +11,11 @@ export default (props) => <Input {...props}
     labelStyle={styles.inputLabel}
 />
 
+export const BasicInput = props =>  <Input {...props} 
+    placeholderTextColor={placeholderColor}
+    inputStyle={styles.input}
+    labelStyle={styles.inputLabel}
+/>
 
 const styles = StyleSheet.create({
     inputContainer: {

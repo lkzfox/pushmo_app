@@ -33,23 +33,23 @@ class PacientInfo extends Component{
         {
             title: "Historico",
             iconName: "format-align-justify",
-            action: this.handle
+            onPress: () => this.handle('PacientBackground')
         },
         {
             title: "Lesoes",
             iconName: "local-hospital",
-            action: this.handle
+            onPress: this.handle
         },
         {
             title: "Grafico",
             iconName: "assessment",
-            action: this.handle
+            onPress: this.handle
         }
         
     ]
 
-    handle = () => {
-
+    handle = (route) => {
+        this.props.navigation.navigate(route);
     }
 
     render() {
@@ -60,7 +60,7 @@ class PacientInfo extends Component{
                 }
                 <View style={styles.container}>
                 {
-                    this.actionsList.map( (item, i) => <Button {...item} key={i} raised={true} containerStyle={{marginBottom: 16}} /> )
+                    this.actionsList.map( (item, i) => <Button {...item} key={i} raised={true} containerStyle={{marginBottom: marginLg}} /> )
                 }     
                 </View>           
             </View>

@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import PacientsList from './pages/PacientsList';
 import PacientRegister from './pages/PacientRegister';
 import PacientInfo from './pages/PacientInfo';
+import PacientBackground from './pages/PacientBackground';
 
 const PacientInfoNavigationOptions = ({ navigation }) => ({
     headerLeft: <HeaderBackButton onPress={() => navigation.popToTop()} />,
@@ -22,6 +23,7 @@ const Routes = createAppContainer(
                 screen: PacientInfo,
                 navigationOptions: PacientInfoNavigationOptions
             },
+            PacientBackground,
         })
     })
 );

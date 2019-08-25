@@ -1,0 +1,114 @@
+[
+    {
+        "question": "Tratamento médico atual",
+        "state": "current_medical_care",
+        "obs": {
+            "placeholder": "Medicamentos em uso",
+            "state": "current_medical_care_obs"
+        }
+    },
+    {
+        "question": "Antecedntes alérgicos",
+        "state": "allergic",
+        "obs": {
+            "placeholder": "Quais",
+            "state": "allergic_obs"
+        }
+    },
+    {
+        "question": "Portador de marcapasso",
+        "state": "pacemaker"
+    },
+    {
+        "question": "Alterações cardiacas",
+        "state": "cardiac_change",
+        "obs": {
+            "placeholder": "Quais",
+            "state": "cardiac_change_obs"
+        }
+    },
+    {
+        "question": "Hipo/hipertensão arterial",
+        "state": "arterial_change"
+    },
+    {
+        "question": "Distúrbio circulatório",
+        "state": "circulatory_disturbance",
+        "obs": {
+            "placeholder": "Qual",
+            "state": "circulatory_disturbance_obs"
+        }
+    },
+    {
+        "question": "Distúrbio renal",
+        "state": "kidney_distrubance",
+        "obs": {
+            "placeholder": "Qual",
+            "state": "kidney_distrubance_obs"
+        }
+    },
+    {
+        "question": "Distúrbio hormonal",
+        "state": "hormony_disturbance",
+        "obs": {
+            "placeholder": "Qual",
+            "state": "hormony_disturbance_obs"
+        }
+    },
+    {
+        "question": "Distúrbio gastro-intestinal",
+        "state": "gastrointestinal_disturbance",
+        "obs": {
+            "placeholder": "Qual",
+            "state": "gastrointestinal_disturbance_obs"
+        }
+    },
+    {
+        "question": "Eplepsia-convulsões",
+        "state": "convulsion",
+        "obs": {
+            "placeholder": "Frequência",
+            "state": "convulsion_obs"
+        }
+    },
+    {
+        "question": "Alterações psicológicas/psiquiátricas",
+        "state": "psychological_changes",
+        "obs": {
+            "placeholder": "Quais",
+            "state": "psychological_changes_obs"
+        }
+    },
+    {
+        "question": "Estresse",
+        "state": "stress",
+        "obs": {
+            "placeholder": "Obs",
+            "state": "stress_obs"
+        }
+    },
+    {
+        "question": "Antecedentes oncológicos",
+        "state": "oncological_background",
+        "obs": {
+            "placeholder": "Qual",
+            "state": "oncological_background_obs"
+        }
+    },
+    {
+        "question": "Diabetes",
+        "state": "diabetes",
+        "obs": {
+            "placeholder": "Tipo",
+            "state": "diabetes_obs"
+        }
+    },
+    {
+        "question": "Algum tipo de doença",
+        "state": "disease",
+        "obs": {
+            "placeholder": "Qual",
+            "state": "disease_obs"
+        }
+    }
+]

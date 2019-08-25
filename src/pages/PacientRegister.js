@@ -91,7 +91,7 @@ class PacientRegister extends Component{
             case "name":
                 if (toValidate.trim().length < 2) return "O nome precisa ter 3 ou mais caracteres."
                 break;
-            case "cpfs":
+            case "cpf":
                 if (!this.validCPF(toValidate)) return "O CPF e invalido."
                 break;
             case "born_at":

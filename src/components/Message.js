@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Input, Overlay, Text } from "react-native-elements";
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import { Overlay, Text } from "react-native-elements";
 import { placeholderColor, fontColor } from "../styles/colors";
 import { messageTitle, marginMd, font, marginLg, buttonFont, message } from '../styles/sizes';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -15,9 +15,10 @@ export default (props) => {
         >
             <View style={{flex: 1}}>
                 <View style={styles.container}>
-                    <Text style={styles.title}>Titulo</Text>
+                    <Text style={styles.title}>{props.title}</Text>
                         {props.message && (
                             <View style={!props.messageList && styles.center}>
+                                {props.loading && <ActivityIndicator size="large" color={fontColor} />}
                                 <Text style={styles.message}>{props.message}</Text>
                             </View>
                         )}
@@ -31,7 +32,9 @@ export default (props) => {
                             </View>
                         )}
                 </View>
-                <Footer title="OK" onPress={props.onButtonPress} buttonStyle={{backgroundColor: "#000"}} />
+                {
+                    !!props.showButton && <Footer title="OK" onPress={props.onButtonPress} buttonStyle={{backgroundColor: "#000"}} />
+                }
             </View>
     </Overlay>
     )
