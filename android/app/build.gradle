@@ -131,6 +131,7 @@ android {
         applicationId "com.pushmo_app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        missingDimensionStrategy 'react-native-camera', 'general'
         versionCode 1
         versionName "1.0"
     }
@@ -188,6 +189,13 @@ android {
 }
 
 dependencies {
+    implementation (project(':react-native-camera')) {
+        exclude group: "com.google.android.gms"
+        implementation 'com.android.support:exifinterface:27.+'
+        implementation ('com.google.android.gms:play-services-vision:17.0.2') {
+            force = true
+        }
+    }
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-gesture-handler')
     implementation fileTree(dir: "libs", include: ["*.jar"])

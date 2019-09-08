@@ -6,7 +6,7 @@ import { fontColor, placeholderColor } from '../styles/colors';
 export default class RadioGroup extends React.Component {
  render() {
     return (
-        <View style={styles.container}>
+        <View style={{...styles.container, ...this.props.style}}>
             <View style={styles.groupContainer}>
                 {this.props.title && (
                     <View style={styles.fullContent}>
@@ -48,7 +48,7 @@ export default class RadioGroup extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
+        alignSelf:"flex-start",
         flexWrap:"wrap", 
         flexDirection: "row",
         marginBottom: marginLg

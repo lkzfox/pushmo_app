@@ -6,6 +6,9 @@ import PacientsList from './pages/PacientsList';
 import PacientRegister from './pages/PacientRegister';
 import PacientInfo from './pages/PacientInfo';
 import PacientBackground from './pages/PacientBackground';
+import PacientPressureUlcer from './pages/PacientPressureUlcer';
+import PressureUlcerRegister from './pages/PressureUlcerRegister';
+import Camera from './pages/Camera';
 
 const PacientInfoNavigationOptions = ({ navigation }) => ({
     headerLeft: <HeaderBackButton onPress={() => navigation.popToTop()} />,
@@ -24,6 +27,9 @@ const Routes = createAppContainer(
                 navigationOptions: PacientInfoNavigationOptions
             },
             PacientBackground,
+            PacientPressureUlcer,
+            PressureUlcerRegister,
+            Camera,
         })
     })
 );

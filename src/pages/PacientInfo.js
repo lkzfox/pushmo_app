@@ -38,7 +38,7 @@ class PacientInfo extends Component{
         {
             title: "Lesoes",
             iconName: "local-hospital",
-            onPress: this.handle
+            onPress: () => this.handle('PacientPressureUlcer')            
         },
         {
             title: "Grafico",
