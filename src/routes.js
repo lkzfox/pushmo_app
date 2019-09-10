@@ -9,6 +9,8 @@ import PacientBackground from './pages/PacientBackground';
 import PacientPressureUlcer from './pages/PacientPressureUlcer';
 import PressureUlcerRegister from './pages/PressureUlcerRegister';
 import Camera from './pages/Camera';
+import PushEntriesList from './pages/PushEntriesList';
+import PushEntryRegister from './pages/PushEntryRegister';
 
 const PacientInfoNavigationOptions = ({ navigation }) => ({
     headerLeft: <HeaderBackButton onPress={() => navigation.popToTop()} />,
@@ -30,6 +32,8 @@ const Routes = createAppContainer(
             PacientPressureUlcer,
             PressureUlcerRegister,
             Camera,
+            PushEntriesList,
+            PushEntryRegister,
         })
     })
 );

@@ -32,8 +32,9 @@ class PacientPressureUlcer extends Component {
         })
     }
 
-    handleSelect = (state, value) => {
-        
+    handleSelect = ulcer => {
+        this.props.selectPressureUlcer(ulcer);
+        this.props.navigation.navigate('PushEntriesList');
     }
 
     handleSave = () => {
@@ -41,7 +42,7 @@ class PacientPressureUlcer extends Component {
     }
 
     handleRegister = () => {
-        this.props.navigation.navigate('PressureUlcerRegister')
+        this.props.navigation.navigate('PushEntryRegister')
     }
 
 
@@ -57,6 +58,7 @@ class PacientPressureUlcer extends Component {
                                     key={i} 
                                     title={`Lesao 0${i+1}`}
                                     color={this.colorOrder[i]}
+                                    onPress={() => this.handleSelect(ulcer)}
                                     ulcerLocation={ulcer.PressureUlcerLocation.initials} 
                                     ulcerStage={ulcer.PressureUlcerStage.initials}
                                 />

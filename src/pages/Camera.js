@@ -49,7 +49,7 @@ class Camera extends Component {
     
     handleSaveImage = () => {
         this.props.saveImage(`data:image/jpeg;base64,${this.state.base64}`);
-        this.props.navigation.navigate('PressureUlcerRegister');
+        this.props.navigation.pop();
     }
 
     renderPreview = () => {

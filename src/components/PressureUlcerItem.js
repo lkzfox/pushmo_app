@@ -5,7 +5,9 @@ import { marginLg, padding, font, marginMd } from '../styles/sizes';
 
 export default props => {
     return (
-        <View style={{...styles.container, backgroundColor: props.color}}>
+        <TouchableOpacity onPress={props.onPress} 
+            disabled={props.empty} 
+            style={{...styles.container, backgroundColor: props.color}}>
             {
                 !props.empty && <View style={styles.grayed}>
                     <Text style={styles.title}>{props.title}</Text>
@@ -18,7 +20,7 @@ export default props => {
                     <Text>Nao cadastrada</Text>
                 </View>
             }
-        </View>
+        </TouchableOpacity>
     )
 }
 
