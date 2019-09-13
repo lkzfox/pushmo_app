@@ -90,6 +90,7 @@ class PressureUlcerRegister extends Component{
         API.post(`/pressure_ulcer/${this.props.pressureUlcer.id}/entries`, data)
         .then(res => {            
             this.props.addPushEntry(res.data.data);
+            this.props.setPushEntry(res.data.data);
             this.props.saveImage('');
             this.setState({
                 showMessageButton: true,
@@ -97,7 +98,7 @@ class PressureUlcerRegister extends Component{
                 loading: false,
                 messageCB: () => {
                     this.setState({ isVisible: false })
-                    this.props.navigation.pop();
+                    this.props.navigation.navigate('PushEntryAdditionalInfoList');
                 }
             })
         })

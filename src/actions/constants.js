@@ -5,3 +5,7 @@ export const ADD_PACIENT_PRESSURE_ULCER = "add_pacient_pressure_ulcers";
 export const SELECT_PRESSURE_ULCER = "select_pressure_ulcer";
 export const PUSH_ENTRIES = "push_entries";
 export const ADD_PUSH_ENTRY = "add_push_entry";
+export const SET_PUSH_ENTRY = "set_push_entry";
+export const SELECT_PUSH_ADDITIONAL_INFO = "select_push_additional_info";
+export const ADD_SELECTIONS_PUSH_ADDITIONAL_INFO = "add_selections_push_additional_info";
+export const ADD_OTHERS_PUSH_ADDITIONAL_INFO = "add_others_push_additional_info";

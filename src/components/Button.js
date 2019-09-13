@@ -5,7 +5,7 @@ import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default (props) => <Button  
-    icon={(
+    icon={props.iconName && (
         <Icon name={props.iconName} 
             size={buttonIcon} 
             color={buttonIconColor}

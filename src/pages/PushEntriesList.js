@@ -27,11 +27,6 @@ class PressureUlcerEntriesList extends Component {
         this.props.navigation.navigate('PushEntryRegister');
     }
 
-    handleSelectPacient = pacient => {        
-        this.props.selectPacient(pacient);
-        this.props.navigation.navigate('PacientInfo');
-    }
-
     renderItem = ({ item }) => {
         return (
             <ListItem
@@ -39,7 +34,6 @@ class PressureUlcerEntriesList extends Component {
                 subtitle={`Score: ${item.Area.value + item.Skin.value + item.Exudato.value}`}
                 bottomDivider={true}
                 leftIcon={(<Icon name="date-range" size={buttonIcon} color={fontColor} />)}
-                // onPress={() => this.handleSelectPacient(item)}
             />
         )
     }

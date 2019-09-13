@@ -4,6 +4,14 @@ import { font, marginMd, marginLg } from '../styles/sizes';
 import { fontColor, placeholderColor } from '../styles/colors';
 
 export default class RadioGroup extends React.Component {
+
+    selected = button => {
+        if (this.props.multiple) {
+            return this.props.selected.includes(button.value);
+        }
+        return this.props.selected === button.value
+    }
+    
  render() {
     return (
         <View style={{...styles.container, ...this.props.style}}>
@@ -16,19 +24,23 @@ export default class RadioGroup extends React.Component {
                 {
                     this.props.options.map((button, i) => {
                         return (
-                            <TouchableOpacity 
-                                style={styles.buttonContainer} 
-                                key={i} 
-                                onPress={() => this.props.onSelect(button.value)}
-                                disabled={this.props.disabled}
+                            <View
+                                key={i}
+                                style={this.props.EPL && {width: "100%"}} 
                             >
-                                <View style={styles.radioContainer}>
-                                    {this.props.selected === button.value && <View style={styles.radioSelection}></View>}
-                                </View>
-                                <View  style={styles.label}>
-                                    <Text>{button.label}</Text>
-                                </View>
-                            </TouchableOpacity>
+                                <TouchableOpacity 
+                                    style={styles.buttonContainer} 
+                                    onPress={() => this.props.onSelect(button.value)}
+                                    disabled={this.props.disabled}
+                                >
+                                    <View style={styles.radioContainer}>
+                                        {this.selected(button) && <View style={styles.radioSelection}></View>}
+                                    </View>
+                                    <View  style={styles.label}>
+                                        <Text>{button.label}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         );
                     })
                 }

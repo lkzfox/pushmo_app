@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Input } from "react-native-elements";
 import { placeholderColor, fontColor } from "../styles/colors";
-import { marginLg } from '../styles/sizes';
+import { marginLg, marginMd } from '../styles/sizes';
 
 export default (props) => <Input {...props} 
     placeholderTextColor={placeholderColor}
@@ -14,6 +14,7 @@ export default (props) => <Input {...props}
 export const BasicInput = props =>  <Input {...props} 
     placeholderTextColor={placeholderColor}
     inputStyle={styles.input}
+    containerStyle={styles.basicContainer}
     labelStyle={styles.inputLabel}
 />
 
@@ -30,5 +31,8 @@ const styles = StyleSheet.create({
     },
     input: {
         paddingBottom: 0,
+    },
+    basicContainer: {
+        marginVertical: marginMd,
     }
 });

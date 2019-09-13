@@ -4,6 +4,9 @@ import saveImage from './saveImage';
 import pacientPressureUlcers from './pacientPressureUlcers';
 import pressureUlcer from './pressureUlcer';
 import pushEntries from './pushEntries';
+import pushAdditionalInfo from './pushAdditionalInfo';
+import pushOptions from './pushOptions';
+import pushEntry from './pushEntry';
 
 export default combineReducers({
     selectedPacient,
@@ -11,4 +14,7 @@ export default combineReducers({
     pacientPressureUlcers,
     pressureUlcer,
     pushEntries,
+    pushAdditionalInfo,
+    pushOptions,
+    pushEntry,
 });
