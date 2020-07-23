@@ -42,7 +42,7 @@ class PacientPressureUlcer extends Component {
     }
 
     handleRegister = () => {
-        this.props.navigation.navigate('PushEntryRegister')
+        this.props.navigation.navigate('PressureUlcerRegister')
     }
 
 

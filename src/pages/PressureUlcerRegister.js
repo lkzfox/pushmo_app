@@ -38,7 +38,7 @@ class PressureUlcerRegister extends Component{
         .then(res => {
             res.data.locations.forEach(location => {
                 location.value = location.id;
-                location.label = location.initials
+                location.label = location.description
             });
             res.data.stages.forEach(stage => {
                 stage.value = stage.id;
