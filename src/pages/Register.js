@@ -1,69 +1,72 @@
 import React, { Component } from 'react';
 import { View, KeyboardAvoidingView, TextInput, TouchableOpacity, StyleSheet, Text, AsyncStorage } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { padding, marginMd } from '../styles/sizes';
+import { padding, paddingLg } from '../styles/sizes';
 import { Input } from 'react-native-elements';
 import API from '../services/api';
 import Message from '../components/Message';
 
-export default class Login extends Component{
+export default class Register extends Component{
     state = {
         email: "",
+        name: "",
+        password: "",
+        passwordConfirmation: "",
         isVisible: false
-    }
-
-    async componentDidMount () {
-        const user = await AsyncStorage.getItem("@pushmo:user");
-        const token = await AsyncStorage.getItem("@pushmo:token");
-        
-        if (user && token) {
-            API.defaults.headers['x-auth-token'] = token
-            this.props.navigation.navigate('LoggedRoutes')
-        }
     }
     
     handleChange = (prop, val) => {
         this.setState({[prop]: val})
     }
 
-    handleLogin = async () => {
-        const { email, password } = this.state;
+    handleRegister = () => {
+        const { email, password, passwordConfirmation, name } = this.state;
 
-        if (!email || !password) return;
+        if (!email || !password || !name || !passwordConfirmation) return;
 
-        
+        if (password != passwordConfirmation) {
+            this.showMessage("As senhas não conferem",
+            () => {
+                this.setState({ isVisible: false })
+            })
+            return;
+        }
+
         this.setState({ 
             isVisible: true,
             loading: true,
             message: "Aguarde..."
         });
 
-        API.post('/auth/login', this.state)
+        API.post('/auth/register', this.state)
         .then(async res => {
-            await AsyncStorage.setItem("@pushmo:user", this.state.email);
-            await AsyncStorage.setItem("@pushmo:token", res.headers['x-auth-token']);
-    
-            this.setState({ 
-                isVisible: false,
-                loading: false,
-                message: ""
-            });
-            this.props.navigation.navigate('LoggedRoutes');
+            this.showMessage("Registro efetuado, você já pode fazer o login!",
+            () => {
+                this.props.navigation.navigate('Login');
+            })
         })
         .catch(() => {
             
             this.setState({ 
                 isVisible: true,
                 loading: false,
-                message: "Email/Senha não encontrado"
+                message: ""
             });
 
         })
-
     }
-    
-    handleRegister = () => {
-        this.props.navigation.navigate('Register');
+
+    showMessage = (message, messageCB) => {
+        this.setState({ 
+            isVisible: true,
+            loading: false,
+            message,
+            messageCB
+        });
+    }
+
+    handleBack = () => {
+        this.props.navigation.navigate('Login');
     }
 
     closeMessage = () => {
@@ -75,7 +78,12 @@ export default class Login extends Component{
         return (
                 <KeyboardAvoidingView behavior="padding" style={styles.container}>
                     <View style={styles.center}>
-                        <Text style={styles.title}>PushMo</Text>
+                        <Text style={styles.title}>Cadastro</Text>
+                        <Input placeholder='Seu nome'
+                            leftIcon={ <Icon name='person-outline' size={24} color='black'/> }
+                            onChangeText={val => this.handleChange('name', val)} 
+                            value={this.state.name}
+                        />
                         <Input placeholder='Ex.: email@email.com.br'
                             leftIcon={ <Icon name='mail-outline' size={24} color='black'/> }
                             onChangeText={val => this.handleChange('email', val)} 
@@ -88,17 +96,23 @@ export default class Login extends Component{
                             style={styles.input}
                             secureTextEntry
                         />
-                        <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-                            <Text style={{textAlign: "center", color: "#FFF", fontWeight: "bold", fontSize: 18}}>ENTRAR</Text>
+                        <Input placeholder='confirmar senha'
+                            leftIcon={ <Icon name='lock' size={24} color='black'/> }
+                            onChangeText={val => this.handleChange('passwordConfirmation', val)} 
+                            value={this.state.passwordConfirmation}
+                            style={styles.input}
+                            secureTextEntry
+                        />
+                        <TouchableOpacity style={styles.button} onPress={this.handleRegister}>
+                            <Text style={{textAlign: "center", color: "#FFF", fontWeight: "bold", fontSize: 18}}>Cadastrar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{padding: paddingLg, marginTop: 16}} onPress={this.handleBack}>
+                            <Text style={{textAlign: "center", color: "#FFF", fontWeight: "bold", fontSize: 14}}>Voltar</Text>
                         </TouchableOpacity>
                     </View>
                     
-                    <TouchableOpacity onPress={this.handleRegister} style={styles.registerContainer} >
-                        <Text style={styles.registerText}>Não é cadastrado ainda?</Text>
-                        <Text style={styles.registerText}>Registre-se</Text>
-                    </TouchableOpacity>
                     <Message 
-                        onButtonPress={this.closeMessage} 
+                        onButtonPress={this.state.messageCB} 
                         isVisible={this.state.isVisible} 
                         message={this.state.message}
                         loading={this.state.loading}

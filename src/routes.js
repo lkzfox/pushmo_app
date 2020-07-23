@@ -2,6 +2,7 @@ import React from 'react';
 import { createAppContainer, createStackNavigator, createSwitchNavigator, HeaderBackButton } from 'react-navigation';
 
 import Login from './pages/Login';
+import Register from './pages/Register';
 import PacientsList from './pages/PacientsList';
 import PacientRegister from './pages/PacientRegister';
 import PacientInfo from './pages/PacientInfo';
@@ -46,7 +47,8 @@ const Routes = createAppContainer(
             PacientGraph,
             PacientPressureUlcerPictures,
             PressureUlcerPicturesList,
-        })
+        }),
+        Register
     })
 );
 
