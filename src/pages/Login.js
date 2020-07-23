@@ -1,56 +1,113 @@
 import React, { Component } from 'react';
 import { View, KeyboardAvoidingView, TextInput, TouchableOpacity, StyleSheet, Text, AsyncStorage } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { padding } from '../styles/sizes';
+import { Input } from 'react-native-elements';
+import API from '../services/api';
+import Message from '../components/Message';
 
 export default class Login extends Component{
     state = {
-        username: "",
+        email: "",
+        isVisible: false
     }
 
     async componentDidMount () {
-        const user = AsyncStorage.getItem("@pushmo:user");
+        const user = await AsyncStorage.getItem("@pushmo:user");
+        const token = await AsyncStorage.getItem("@pushmo:token");
         
-        if (user) {
+        if (user && token) {
+            API.defaults.headers['x-auth-token'] = token
             this.props.navigation.navigate('LoggedRoutes')
         }
     }
     
-    handleChange = (username) => {
-        this.setState({username})
+    handleChange = (prop, val) => {
+        this.setState({[prop]: val})
     }
 
     handleLogin = async () => {
-        const { username } = this.state;
+        const { email, password } = this.state;
 
-        if (!username) return;
+        if (!email || !password) return;
 
-        await AsyncStorage.setItem("@pushmo:user", this.state.username);
+        
+        this.setState({ 
+            isVisible: true,
+            loading: true,
+            message: "Aguarde..."
+        });
 
-        this.props.navigation.navigate('LoggedRoutes');
+        API.post('/auth/login', this.state)
+        .then(async res => {
+            await AsyncStorage.setItem("@pushmo:user", this.state.email);
+            await AsyncStorage.setItem("@pushmo:token", res.headers['x-auth-token']);
+    
+            this.setState({ 
+                isVisible: false,
+                loading: false,
+                message: ""
+            });
+            this.props.navigation.navigate('LoggedRoutes');
+        })
+        .catch(() => {
+            
+            this.setState({ 
+                isVisible: true,
+                loading: false,
+                message: "Email/Senha não encontrado"
+            });
+
+        })
+
+
+    }
+
+    closeMessage = () => {
+        console.log('acll');
+        this.setState({ isVisible: false });
     }
 
     render() {
         return (
-            <KeyboardAvoidingView behavior="padding" style={styles.container}>
-                <View style={styles.center}>
-                    <Icon name="twitter" size={64} color="#FFF" />
-                    <TextInput style={styles.input} placeholder="Email" onChangeText={this.handleChange} value={this.state.username}></TextInput>
-                    <TextInput style={styles.input} placeholder="Senha" secureTextEntry></TextInput>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={{textAlign: "center", color: "#FFF", fontWeight: "bold", fontSize: 18}}>Entrar</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={this.handleLogin}
-                    >
-                        <Text style={{
-                            textAlign: "center", 
-                            color: "#55F", 
-                            fontWeight: "bold", 
-                            fontSize: 16, 
-                        }}>Registre-se</Text>
-                    </TouchableOpacity>
-                </View>
-            </KeyboardAvoidingView>
+                <KeyboardAvoidingView behavior="padding" style={styles.container}>
+                    <View style={styles.center}>
+                        <Text style={styles.title}>PushMo</Text>
+                        <Input placeholder='Ex.: email@email.com.br'
+                            leftIcon={ <Icon name='mail-outline' size={24} color='black'/> }
+                            onChangeText={val => this.handleChange('email', val)} 
+                            value={this.state.email}
+                        />
+                        <Input placeholder='senha'
+                            leftIcon={ <Icon name='lock' size={24} color='black'/> }
+                            onChangeText={val => this.handleChange('password', val)} 
+                            value={this.state.password}
+                            style={styles.input}
+                            secureTextEntry
+                        />
+                        <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
+                            <Text style={{textAlign: "center", color: "#FFF", fontWeight: "bold", fontSize: 18}}>ENTRAR</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={this.handleLogin}
+                        >
+                            <Text style={{
+                                textAlign: "center", 
+                                color: "#55F", 
+                                fontWeight: "bold", 
+                                fontSize: 16, 
+                            }}>Registre-se</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <Message 
+                        onButtonPress={this.closeMessage} 
+                        isVisible={this.state.isVisible} 
+                        message={this.state.message}
+                        loading={this.state.loading}
+                        showButton={true}
+                    />
+                </KeyboardAvoidingView>
+                
         )
     }
 }
@@ -64,11 +121,12 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
+        paddingHorizontal: padding
     },
     input: {
         borderWidth: 1,
         alignSelf: "stretch",
-        margin: 16,
+        marginVertical: 16,
         borderColor: "#000"
     },
     button: {
@@ -77,7 +135,12 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         alignSelf: "stretch",
         textAlign: "center",
-        margin: 16,
+        marginVertical: 16,
         padding: 16
+    },
+    title: {
+        fontSize: 30,
+        fontWeight: "bold",
+        marginBottom: 30
     }
 })

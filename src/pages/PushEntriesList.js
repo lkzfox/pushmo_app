@@ -10,7 +10,7 @@ import Footer from '../components/Footer';
 import { buttonIcon } from '../styles/sizes';
 import { fontColor } from '../styles/colors';
 
-class PressureUlcerEntriesList extends Component {
+class PushEntriesList extends Component {
     static navigationOptions = {
         title: "Registros da Lesao"
     }
@@ -72,4 +72,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, actions)(PressureUlcerEntriesList);
+export default connect(mapStateToProps, actions)(PushEntriesList);

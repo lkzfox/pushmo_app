@@ -1,4 +1,4 @@
-export const buttonColor = "#22dd22";
+export const buttonColor = "#28ac4e";
 export const placeholderColor = "#cecece";
 export const inputColor = "#000";
 export const fontColor = "#000";

@@ -31,6 +31,7 @@ class PressureUlcerRegister extends Component{
     }
 
     componentDidMount() {
+        console.log('Àqui veio');
         this.setState({
             isVisible: true,
             showMessageButton: false,

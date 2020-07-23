@@ -30,6 +30,7 @@ export default class DateSelector extends React.Component {
 
     componentDidMount() {
         this.props.onDateChange && this.props.onDateChange(this.state);
+        this.props.defaultDate && this.onDateChange({dateString: this.props.defaultDate});
     }
     
     handlePress = () => {

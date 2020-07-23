@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     grayed: {
+        flex: 1,
         margin: marginMd,
         padding: padding,
         borderRadius: 4,

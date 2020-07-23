@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, FlatList, StyleSheet, TextInput, TouchableOpacity, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -9,6 +9,7 @@ import FMT from '../helpers/formater';
 import Footer from '../components/Footer';
 import { buttonIcon } from '../styles/sizes';
 import { fontColor } from '../styles/colors';
+import MessageYN from '../components/MessageYN';
 
 class PacientsList extends Component {
     static navigationOptions = {
@@ -21,6 +22,7 @@ class PacientsList extends Component {
         timeout: null,
         isLoading: false,
         isVisible: true,
+        messageLogoutVisible: false
     }
 
     componentDidMount() {
@@ -46,7 +48,11 @@ class PacientsList extends Component {
                 isLoading: false,
             });
         })
-        .catch(err => this.setState({search: JSON.stringify(err)}));   
+        .catch(err => { 
+            this.setState({search: JSON.stringify(err)})
+            console.log( JSON.stringify(err))
+        }
+        );   
     }
 
     handleRegister = () => {
@@ -56,6 +62,10 @@ class PacientsList extends Component {
     handleSelectPacient = pacient => {        
         this.props.selectPacient(pacient);
         this.props.navigation.navigate('PacientInfo');
+    }
+
+    onPress = () => {
+        this.setState({messageLogoutVisible: true})
     }
 
     renderItem = ({ item }) => {
@@ -71,22 +81,47 @@ class PacientsList extends Component {
         )
     }
 
+    yesFunction = async () => {
+        this.setState({messageLogoutVisible: false})
+        
+        await AsyncStorage.removeItem("@pushmo:user");
+        await AsyncStorage.removeItem("@pushmo:token");
+        this.props.navigation.navigate('Login')
+        
+    }
+
+    noFunction = () => {
+        this.setState({messageLogoutVisible: false})
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                <View>
-                    <SearchBar
-                        placeholder="Buscar nome/cpf..."
-                        onChangeText={this.handleChange}
-                        value={this.state.search}
-                        showLoading={this.state.isLoading}
-                        lightTheme={true}
-                        loadingProps={{
-                            color: fontColor,
-                            size: buttonIcon
-                        }}
-                        inputStyle={{color: fontColor}}
-                    />
+                <View style={{display: 'flex', flexDirection: 'row'}}>
+                    <View style={styles.container}>
+                        <SearchBar
+                            placeholder="Buscar nome/cpf..."
+                            onChangeText={this.handleChange}
+                            value={this.state.search}
+                            showLoading={this.state.isLoading}
+                            lightTheme={true}
+                            loadingProps={{
+                                color: fontColor,
+                                size: buttonIcon
+                            }}
+                            inputStyle={{color: fontColor}}
+                        />
+                    </View>
+                    <View>
+                        <TouchableOpacity onPress={this.onPress} style={{ display: 'flex', alignContent: 'center', padding: 2 }}>
+                            <Icon
+                                name='exit-to-app'
+                                size={60}
+                                style={{ justifyContent: 'center' }}
+                                color={'grey'}
+                                ref={this.onRef} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <View style={styles.list}>
                     <FlatList
@@ -96,6 +131,13 @@ class PacientsList extends Component {
                     />
                 </View>
                 <Footer title="Adicionar Paciente" iconName="add-circle-outline" onPress={this.handleRegister} />
+                <MessageYN 
+                    isVisible={this.state.messageLogoutVisible} 
+                    title="Sair" 
+                    message="Deseja realmente sair do aplicativo?" 
+                    yesFunction={this.yesFunction} 
+                    noFunction={this.noFunction} 
+                />
             </View>
         )
     }

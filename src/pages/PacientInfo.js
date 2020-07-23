@@ -26,7 +26,7 @@ class PacientInfo extends Component{
         {
             title: this.props.selectedPacient.address,
             leftIcon: <TextIcon name="home"/>
-        }
+        },
     ]
 
     actionsList = [
@@ -43,7 +43,12 @@ class PacientInfo extends Component{
         {
             title: "Grafico",
             iconName: "assessment",
-            onPress: this.handle
+            onPress: () => this.handle('PacientGraph')            
+        },
+        {
+            title: "Monitoramento Temporal",
+            iconName: "camera-alt",
+            onPress: () => this.handle('PacientPressureUlcerPictures')            
         }
         
     ]
