@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions, KeyboardAvoidingView, StyleSheet, Image, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Dimensions, KeyboardAvoidingView, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import Footer from '../components/Footer';
 import API from '../services/api';
@@ -9,29 +9,24 @@ import Message from '../components/Message';
 import RadioGroup from '../components/RadioGroup';
 import DateSelector from '../components/DateSelector';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import IconFA from 'react-native-vector-icons/FontAwesome';
 import { buttonColor, placeholderColor } from '../styles/colors';
-import Input from '../components/Input';
 
 class PressureUlcerRegister extends Component{
     static navigationOptions = {
-        title: "Registro da Lesao"
+        title: "Cadastro de Lesao"
     }
 
     state = {
         isVisible: false,
-        exudatos: [],
-        skins: [],
-        exudato: null,
-        skin: null,
+        locations: [],
+        stages: [],
+        location: null,
+        stage: null,
         showMessageButton: true,
-        messageCB: null,
-        length: '',
-        width: '',
+        messageCB: null
     }
 
     componentDidMount() {
-        console.log('Àqui veio');
         this.setState({
             isVisible: true,
             showMessageButton: false,
@@ -41,18 +36,19 @@ class PressureUlcerRegister extends Component{
 
         API.get('/pressure_ulcers/info')
         .then(res => {
-            res.data.exudatos.forEach(exudato => {
-                exudato.label = exudato.description
-                exudato.value = exudato.id
+            console.log(res.data)
+            res.data.locations.forEach(location => {
+                location.value = location.id;
+                location.label = location.description
             });
-            res.data.skins.forEach(skin => {
-                skin.label = skin.description
-                skin.value = skin.id
+            res.data.stages.forEach(stage => {
+                stage.value = stage.id;
+                stage.label = stage.initials
             });
             
             this.setState({
-                exudatos: res.data.exudatos, 
-                skins: res.data.skins, 
+                locations: res.data.locations, 
+                stages: res.data.stages, 
                 isVisible: false, 
                 loading: false
             })
@@ -65,13 +61,13 @@ class PressureUlcerRegister extends Component{
                 loading: false,
                 messageCB: () => {
                     this.setState({ isVisible: false })
+                    this.props.navigation.pop();
                 }
             })
         })
     }
 
     handleSave = () => {
-        
         this.setState({
             isVisible: true,
             showMessageButton: false,
@@ -80,18 +76,16 @@ class PressureUlcerRegister extends Component{
         });
 
         const data = {
-            length: this.state.length,
-            width: this.state.width,
-            exudato_id: this.state.exudato,
-            skin_id: this.state.skin,
+            pressure_ulcer_location_id: this.state.location,
+            pressure_ulcer_location_obs: null,
+            pressure_ulcer_stage_id: this.state.stage,
             created_at: this.state.created_at,
             image: this.props.takenPicture
         };
         
-        API.post(`/pressure_ulcer/${this.props.pressureUlcer.id}/entries`, data)
-        .then(res => {            
-            this.props.addPushEntry(res.data.data);
-            this.props.setPushEntry(res.data.data);
+        API.post(`/pacient/${this.props.selectedPacient.id}/pressure_ulcers`, data)
+        .then(res => {
+            this.props.addPacientPressureUlcer(res.data.data);
             this.props.saveImage('');
             this.setState({
                 showMessageButton: true,
@@ -99,7 +93,7 @@ class PressureUlcerRegister extends Component{
                 loading: false,
                 messageCB: () => {
                     this.setState({ isVisible: false })
-                    this.props.navigation.navigate('PushEntryAdditionalInfoList');
+                    this.props.navigation.pop();
                 }
             })
         })
@@ -127,17 +121,12 @@ class PressureUlcerRegister extends Component{
         this.props.saveImage('');
     }
 
-    handleChange = (name, value) => {
-        this.setState({[name]: value});
-    }
-
     render() {                
         return (
             <>
-                <ScrollView>
                 <KeyboardAvoidingView behavior="padding" style={styles.container}>                    
                     { this.props.takenPicture != '' && 
-                        <View style={{alignItems: "center", marginTop: marginMd}}>
+                        <View style={{alignItems: "center"}}>
                             <Image style={{height: 200, width: 200}} source={{ uri: this.props.takenPicture }} />
                             <TouchableOpacity onPress={this.deleteImage} style={{
                                     position: "absolute",
@@ -174,36 +163,21 @@ class PressureUlcerRegister extends Component{
                                 <Text style={{fontSize: 20, fontWeight: "bold", marginLeft: marginMd}} >Capturar Imagem</Text>
                             </View>
                         </TouchableOpacity>
-                        <Input
-                            label="Comprimento (cm)"
-                            onChangeText={value => this.handleChange('length', value)}
-                            value={this.state.length}
-                            leftIcon={<IconFA name='arrows-v' size={24} color='black'/>}
-                            keyboardType="numeric"
-                        />
-                        <Input
-                            label="Largura (cm)"
-                            onChangeText={value => this.handleChange('width', value)}
-                            value={this.state.width}
-                            leftIcon={<IconFA name='arrows-h' size={24} color='black'/>}
-                            keyboardType="numeric"
+                        <RadioGroup 
+                            options={this.state.locations}  
+                            onSelect={value => this.handleSelect('location', value)}
+                            selected={this.state.location}
+                            title="Localizacao"
                         />
                         <RadioGroup 
-                            options={this.state.exudatos}  
-                            onSelect={value => this.handleSelect('exudato', value)}
-                            selected={this.state.exudato}
-                            title="Quantidade de Exudato"
-                        />
-                        <RadioGroup 
-                            options={this.state.skins}  
-                            onSelect={value => this.handleSelect('skin', value)}
-                            selected={this.state.skin}
-                            title="Tipo de Tecido"
+                            options={this.state.stages}  
+                            onSelect={value => this.handleSelect('stage', value)}
+                            selected={this.state.stage}
+                            title="Estagio"
                         />
                         <DateSelector onDateChange={this.onDateChange} />
                     </View>
                 </KeyboardAvoidingView>
-                </ScrollView>
                 <Footer title="Salvar" iconName="save" onPress={this.handleSave} loading={this.state.isLoading} />
                 <Message 
                     onButtonPress={this.state.messageCB} 
@@ -248,7 +222,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         takenPicture: state.saveImage,
-        pressureUlcer: state.pressureUlcer        
+        selectedPacient: state.selectedPacient        
     }
 }
 
