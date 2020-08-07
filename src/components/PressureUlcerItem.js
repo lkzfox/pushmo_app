@@ -2,18 +2,30 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { placeholderColor } from '../styles/colors';
 import { marginLg, padding, font, marginMd } from '../styles/sizes';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default props => {
     return (
         <TouchableOpacity onPress={props.onPress} 
             disabled={props.empty} 
-            style={{...styles.container, backgroundColor: props.color}}>
+            style={{...styles.container, backgroundColor: props.color }}>
             {
-                !props.empty && <View style={styles.grayed}>
-                    <Text style={styles.title}>{props.title}</Text>
-                    <Text>Localizacao: {props.ulcerLocation}</Text>
-                    <Text>Estagio: {props.ulcerStage}</Text>
-                </View>
+                !props.empty && (
+                    <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={styles.grayed}>
+                            <Text style={styles.title}>{props.title}</Text>
+                            <Text>Localizacao: {props.ulcerLocation}</Text>
+                            <Text>Estagio: {props.ulcerStage}</Text>
+                        </View>
+                        <View style={{display: "flex", alignItems: 'center', padding: padding}}>
+                            <Icon name="arrow-forward" 
+                                size={40} 
+                                color="#000"
+                            /> 
+                            <Text style={{ fontWeight: 'bold' }}>REGISTROS</Text>
+                        </View>
+                    </View>
+                )
             }
             {
                 props.empty && <View style={{...styles.grayed, ...styles.center}}>
@@ -32,6 +44,7 @@ const styles = StyleSheet.create({
         borderColor: placeholderColor,
         borderWidth: 1,
         marginBottom: marginLg,
+        justifyContent: 'center'
     },
     title: {
         fontSize: font + 3,

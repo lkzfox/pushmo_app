@@ -10,6 +10,8 @@ import RadioGroup from '../components/RadioGroup';
 import DateSelector from '../components/DateSelector';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { buttonColor, placeholderColor } from '../styles/colors';
+import { BasicInput } from '../components/Input';
+import { ScrollView } from 'react-native-gesture-handler';
 
 class PressureUlcerRegister extends Component{
     static navigationOptions = {
@@ -76,8 +78,9 @@ class PressureUlcerRegister extends Component{
 
         const data = {
             pressure_ulcer_location_id: this.state.location,
-            pressure_ulcer_location_obs: null,
+            pressure_ulcer_location_desc: this.state.location_desc,
             pressure_ulcer_stage_id: this.state.stage,
+            pressure_ulcer_stage_desc: this.state.stage_desc,
             created_at: this.state.created_at,
             image: this.props.takenPicture
         };
@@ -120,10 +123,15 @@ class PressureUlcerRegister extends Component{
         this.props.saveImage('');
     }
 
+    handleChange = (name, val) => {
+        this.setState({[name]: val})
+    }
+
     render() {                
         return (
             <>
-                <KeyboardAvoidingView behavior="padding" style={styles.container}>                    
+                <KeyboardAvoidingView behavior="height" style={styles.container}>                    
+                <ScrollView style={{display: 'flex'}}>
                     { this.props.takenPicture != '' && 
                         <View style={{alignItems: "center"}}>
                             <Image style={{height: 200, width: 200}} source={{ uri: this.props.takenPicture }} />
@@ -167,17 +175,28 @@ class PressureUlcerRegister extends Component{
                             onSelect={value => this.handleSelect('location', value)}
                             selected={this.state.location}
                             title="Localizacao"
-                        />
+                        >
+                            <BasicInput 
+                                placeholder="Outros.." 
+                                onChangeText={value => this.handleChange('location_desc', value)}
+                            />
+                        </RadioGroup>
                         <RadioGroup 
                             options={this.state.stages}  
                             onSelect={value => this.handleSelect('stage', value)}
                             selected={this.state.stage}
                             title="Estagio"
-                        />
+                        >
+                            <BasicInput 
+                                placeholder="Outros.." 
+                                onChangeText={value => this.handleChange('stage_desc', value)}
+                            />
+                        </RadioGroup>
                         <DateSelector onDateChange={this.onDateChange} />
                     </View>
+                    <Footer title="Salvar" iconName="done" onPress={this.handleSave} loading={this.state.isLoading} />
+                </ScrollView>
                 </KeyboardAvoidingView>
-                <Footer title="Salvar" iconName="save" onPress={this.handleSave} loading={this.state.isLoading} />
                 <Message 
                     onButtonPress={this.state.messageCB} 
                     isVisible={this.state.isVisible} 

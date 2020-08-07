@@ -16,7 +16,7 @@ import Message from '../components/Message';
  
 class PacientBackground extends Component {
     static navigationOptions = {
-        title: 'Historico Clinico'
+        title: 'Histórico Clinico'
     }
 
     state = {
@@ -35,7 +35,7 @@ class PacientBackground extends Component {
         },
         {
             value: false,
-            label: 'Nao'
+            label: 'Não'
         }
     ]
 
@@ -70,7 +70,7 @@ class PacientBackground extends Component {
             let message;
 
             if (err.message == "Network Error")
-                message = "Nao foi posivel conectar ao servidor.";
+                message = "Não foi posivel conectar ao servidor.";
             else
                 message = err.response.data.message;
 
@@ -78,7 +78,7 @@ class PacientBackground extends Component {
                 isLoading: false, 
                 showMessage: true, 
                 message,
-                messageButton: true, message: "Nao foi possivel salvar o historico, tente novamente", title: "Erro"
+                messageButton: true, message: "Não foi possivel salvar o histórico, tente novamente", title: "Erro"
             });
             
         })
@@ -121,7 +121,7 @@ class PacientBackground extends Component {
                     }
                     <Footer 
                         title="Salvar" 
-                        iconName="save" 
+                        iconName="done" 
                         onPress={this.handleSave} 
                         loading={this.state.isLoading} 
                         disabled={this.state.hasBackground} 

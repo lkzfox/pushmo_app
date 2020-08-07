@@ -29,7 +29,11 @@
     },
     {
         "question": "Hipo/hipertensão arterial",
-        "state": "arterial_change"
+        "state": "arterial_change",
+        "obs": {
+            "placeholder": "Qual",
+            "state": "arterial_change_obs"
+        }
     },
     {
         "question": "Distúrbio circulatório",

@@ -38,7 +38,7 @@ class PressureUlcerEntriesList extends Component {
         
         Promise.all(promisesArray)
         .then(res => {
-            console.log(res);
+            this.props.addPushEntry(this.props.pushEntry);
             this.props.navigation.navigate('PushEntriesList');
         })
         .catch(err => {

@@ -18,6 +18,7 @@ import PushOtherInformations from './pages/PushOtherInformations';
 import PacientGraph from './pages/PacientGraph';
 import PacientPressureUlcerPictures from './pages/PacientPressureUlcerPictures';
 import PressureUlcerPicturesList from './pages/PressureUlcerPicturesList';
+import EntryInfo from './pages/EntryInfo';
 
 const PacientInfoNavigationOptions = ({ navigation }) => ({
     headerLeft: <HeaderBackButton onPress={() => navigation.popToTop()} />,
@@ -47,6 +48,7 @@ const Routes = createAppContainer(
             PacientGraph,
             PacientPressureUlcerPictures,
             PressureUlcerPicturesList,
+            EntryInfo
         }),
         Register
     })

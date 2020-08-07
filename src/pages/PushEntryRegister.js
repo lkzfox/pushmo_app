@@ -15,7 +15,7 @@ import Input from '../components/Input';
 
 class PressureUlcerRegister extends Component{
     static navigationOptions = {
-        title: "Registro da Lesao"
+        title: "Avaliação da Lesão"
     }
 
     state = {
@@ -90,7 +90,6 @@ class PressureUlcerRegister extends Component{
         
         API.post(`/pressure_ulcer/${this.props.pressureUlcer.id}/entries`, data)
         .then(res => {            
-            this.props.addPushEntry(res.data.data);
             this.props.setPushEntry(res.data.data);
             this.props.saveImage('');
             this.setState({
@@ -174,6 +173,7 @@ class PressureUlcerRegister extends Component{
                                 <Text style={{fontSize: 20, fontWeight: "bold", marginLeft: marginMd}} >Capturar Imagem</Text>
                             </View>
                         </TouchableOpacity>
+                        <Text style={{fontSize: 20, fontWeight: "bold", padding: 10}}>Escala de PUSH</Text>
                         <Input
                             label="Comprimento (cm)"
                             onChangeText={value => this.handleChange('length', value)}
@@ -202,9 +202,9 @@ class PressureUlcerRegister extends Component{
                         />
                         <DateSelector onDateChange={this.onDateChange} />
                     </View>
+                    <Footer title="Salvar" iconName="done" onPress={this.handleSave} loading={this.state.isLoading} />
                 </KeyboardAvoidingView>
                 </ScrollView>
-                <Footer title="Salvar" iconName="save" onPress={this.handleSave} loading={this.state.isLoading} />
                 <Message 
                     onButtonPress={this.state.messageCB} 
                     isVisible={this.state.isVisible} 
@@ -227,6 +227,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "column",
         flexWrap: "wrap",
+        alignItems: 'center'
     },
     preview: {
         flex: 1,

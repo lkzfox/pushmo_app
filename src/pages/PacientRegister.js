@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, KeyboardAvoidingView, TextInput, TouchableOpacity, StyleSheet, Text, AsyncStorage } from 'react-native';
+import { ScrollView, KeyboardAvoidingView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Input from '../components/Input';
 import Footer from '../components/Footer';
@@ -126,9 +126,8 @@ class PacientRegister extends Component{
 
     render() {
         return (
-            <>
-                <KeyboardAvoidingView behavior="padding" style={styles.container}>
-                    <View style={styles.center}>
+            <KeyboardAvoidingView behavior="height" style={styles.container}>
+                    <ScrollView style={styles.center}>
                         <Input
                             placeholder='Ex.: Antonio Bezerra'
                             label="Nome *"
@@ -144,6 +143,7 @@ class PacientRegister extends Component{
                             value={this.state.cpf}
                             maxLength={14}
                             errorMessage={this.state.cpf_err}
+                            keyboardType="number-pad"
                         />
                         <Input
                             placeholder='Ex.: 01/01/2000'
@@ -152,6 +152,7 @@ class PacientRegister extends Component{
                             value={this.state.born_at}
                             maxLength={10}
                             errorMessage={this.state.born_at_err}
+                            keyboardType="number-pad"
                         />
                         <Input
                             placeholder='Ex.: Rua do Amanhecer, 190'
@@ -160,15 +161,14 @@ class PacientRegister extends Component{
                             value={this.state.address}
                             maxLength={100}
                         />
-                    </View>
-                </KeyboardAvoidingView>
-                <Footer title="Salvar" iconName="save" onPress={this.handleSave} loading={this.state.isLoading} />
-                <Message 
-                    onButtonPress={() => this.setState({ isVisible: false })} 
-                    isVisible={this.state.isVisible} 
-                    message={this.state.message}
-                />
-            </>
+                    </ScrollView>
+                    <Footer title="Salvar" iconName="done" onPress={this.handleSave} loading={this.state.isLoading} />
+                    <Message 
+                        onButtonPress={() => this.setState({ isVisible: false })} 
+                        isVisible={this.state.isVisible} 
+                        message={this.state.message}
+                    />
+            </KeyboardAvoidingView>
         )
     }
 }

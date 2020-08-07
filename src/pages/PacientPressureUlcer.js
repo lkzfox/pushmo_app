@@ -11,7 +11,7 @@ import * as actions from '../actions'
  
 class PacientPressureUlcer extends Component {
     static navigationOptions = {
-        title: 'Lesoes por Pressao'
+        title: 'Lesões por Pressão'
     }
 
     colorOrder = ["#2ecc71", "#e74c3c", "#3498db", "#f1c40f"]
@@ -45,6 +45,14 @@ class PacientPressureUlcer extends Component {
         this.props.navigation.navigate('PressureUlcerRegister')
     }
 
+    selectUlcerLocationValue = ulcer => {
+        return ulcer.PressureUlcerLocation ? ulcer.PressureUlcerLocation.description : ulcer.pressure_ulcer_location_desc
+    }
+
+    selectUlcerStageValue = ulcer => {
+        return ulcer.PressureUlcerStage ? ulcer.PressureUlcerStage.initials : ulcer.pressure_ulcer_location_desc
+    }
+
 
     render() {
         return (
@@ -56,11 +64,11 @@ class PacientPressureUlcer extends Component {
                             return (
                                 <PressureUlcerItem 
                                     key={i} 
-                                    title={`Lesao 0${i+1}`}
+                                    title={`Lesão 0${i+1}`}
                                     color={this.colorOrder[i]}
                                     onPress={() => this.handleSelect(ulcer)}
-                                    ulcerLocation={ulcer.PressureUlcerLocation.initials} 
-                                    ulcerStage={ulcer.PressureUlcerStage.initials}
+                                    ulcerLocation={this.selectUlcerLocationValue(ulcer)} 
+                                    ulcerStage={this.selectUlcerStageValue(ulcer)}
                                 />
                             )
                         })
@@ -74,7 +82,7 @@ class PacientPressureUlcer extends Component {
                         })
                     }
                     <Footer 
-                        title="Cadastrar Lesao" 
+                        title="Cadastrar Lesão" 
                         iconName="add-circle-outline" 
                         disabled={this.props.pacientPressureUlcers.length >= 4} 
                         onPress={this.handleRegister}
@@ -94,7 +102,8 @@ class PacientPressureUlcer extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: "column"
+        flexDirection: "column",
+        paddingTop: 8
     },
     content: {
         flex: 1,

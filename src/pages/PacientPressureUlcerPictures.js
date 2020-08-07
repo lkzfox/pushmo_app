@@ -36,6 +36,14 @@ class PacientPressureUlcerPictures extends Component {
         this.props.selectPressureUlcer(ulcer);
         this.props.navigation.navigate('PressureUlcerPicturesList');
     }
+    
+    selectUlcerLocationValue = ulcer => {
+        return ulcer.PressureUlcerLocation ? ulcer.PressureUlcerLocation.description : ulcer.pressure_ulcer_location_desc
+    }
+
+    selectUlcerStageValue = ulcer => {
+        return ulcer.PressureUlcerStage ? ulcer.PressureUlcerStage.initials : ulcer.pressure_ulcer_location_desc
+    }
 
     render() {
         return (
@@ -50,8 +58,8 @@ class PacientPressureUlcerPictures extends Component {
                                     title={`Lesao 0${i+1}`}
                                     color={this.colorOrder[i]}
                                     onPress={() => this.handleSelect(ulcer)}
-                                    ulcerLocation={ulcer.PressureUlcerLocation.initials} 
-                                    ulcerStage={ulcer.PressureUlcerStage.initials}
+                                    ulcerLocation={this.selectUlcerLocationValue(ulcer)} 
+                                    ulcerStage={this.selectUlcerStageValue(ulcer)}
                                 />
                             )
                         })

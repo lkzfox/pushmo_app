@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, KeyboardAvoidingView, TextInput, TouchableOpacity, StyleSheet, Text, AsyncStorage } from 'react-native';
+import { View, KeyboardAvoidingView, TextInput, TouchableOpacity, StyleSheet, Text, Keyboard } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { padding, marginMd } from '../styles/sizes';
 import { Input } from 'react-native-elements';
@@ -73,13 +74,14 @@ export default class Login extends Component{
 
     render() {
         return (
-                <KeyboardAvoidingView behavior="padding" style={styles.container}>
+            <View style={styles.container}>
                     <View style={styles.center}>
                         <Text style={styles.title}>PushMo</Text>
                         <Input placeholder='Ex.: email@email.com.br'
                             leftIcon={ <Icon name='mail-outline' size={24} color='black'/> }
                             onChangeText={val => this.handleChange('email', val)} 
                             value={this.state.email}
+                            keyboardType="email-address"
                         />
                         <Input placeholder='senha'
                             leftIcon={ <Icon name='lock' size={24} color='black'/> }
@@ -104,8 +106,7 @@ export default class Login extends Component{
                         loading={this.state.loading}
                         showButton={true}
                     />
-                </KeyboardAvoidingView>
-                
+            </View>
         )
     }
 }
@@ -153,6 +154,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderTopWidth: 2,
         borderColor: '#cececeaa',
-        paddingVertical: 20
+        paddingVertical: 20,
+        alignContent: 'flex-end'
     }
 })

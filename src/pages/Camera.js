@@ -15,7 +15,7 @@ class Camera extends Component {
 
     takePicture = async () => {
         if (this.camera) {
-            const options = { quality: 0.5, base64: true, orientation: 'portrait' };
+            const options = { quality: 0.3, base64: true, orientation: 'portrait', width: 768 };
             const data = await this.camera.takePictureAsync(options);
             this.setState({ image: data.uri, base64: data.base64 });
         }

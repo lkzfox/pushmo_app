@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, KeyboardAvoidingView, TextInput, TouchableOpacity, StyleSheet, Text, AsyncStorage } from 'react-native';
+import { View, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { padding, paddingLg } from '../styles/sizes';
 import { Input } from 'react-native-elements';
 import API from '../services/api';
 import Message from '../components/Message';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class Register extends Component{
     state = {
@@ -76,6 +77,7 @@ export default class Register extends Component{
 
     render() {
         return (
+            <ScrollView style={styles.container}>
                 <KeyboardAvoidingView behavior="padding" style={styles.container}>
                     <View style={styles.center}>
                         <Text style={styles.title}>Cadastro</Text>
@@ -83,11 +85,12 @@ export default class Register extends Component{
                             leftIcon={ <Icon name='person-outline' size={24} color='black'/> }
                             onChangeText={val => this.handleChange('name', val)} 
                             value={this.state.name}
-                        />
+                            />
                         <Input placeholder='Ex.: email@email.com.br'
                             leftIcon={ <Icon name='mail-outline' size={24} color='black'/> }
                             onChangeText={val => this.handleChange('email', val)} 
                             value={this.state.email}
+                            keyboardType="email-address"
                         />
                         <Input placeholder='senha'
                             leftIcon={ <Icon name='lock' size={24} color='black'/> }
@@ -106,10 +109,10 @@ export default class Register extends Component{
                         <TouchableOpacity style={styles.button} onPress={this.handleRegister}>
                             <Text style={{textAlign: "center", color: "#FFF", fontWeight: "bold", fontSize: 18}}>Cadastrar</Text>
                         </TouchableOpacity>
+                    </View>
                         <TouchableOpacity style={{padding: paddingLg, marginTop: 16}} onPress={this.handleBack}>
                             <Text style={{textAlign: "center", color: "#FFF", fontWeight: "bold", fontSize: 14}}>Voltar</Text>
                         </TouchableOpacity>
-                    </View>
                     
                     <Message 
                         onButtonPress={this.state.messageCB} 
@@ -119,6 +122,7 @@ export default class Register extends Component{
                         showButton={true}
                     />
                 </KeyboardAvoidingView>
+            </ScrollView>
                 
         )
     }

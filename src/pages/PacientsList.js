@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, FlatList, StyleSheet, TextInput, TouchableOpacity, AsyncStorage } from 'react-native';
+import { View, FlatList, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage'
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -8,7 +9,7 @@ import API from '../services/api';
 import FMT from '../helpers/formater';
 import Footer from '../components/Footer';
 import { buttonIcon } from '../styles/sizes';
-import { fontColor } from '../styles/colors';
+import { fontColor, pacientListIconColor } from '../styles/colors';
 import MessageYN from '../components/MessageYN';
 
 class PacientsList extends Component {
@@ -73,7 +74,7 @@ class PacientsList extends Component {
             <ListItem
                 title={item.name}
                 subtitle={FMT.formatCPF(item.cpf)}
-                leftIcon={(<Icon name="person" size={buttonIcon} color={fontColor} />)}
+                leftIcon={(<Icon name="person" size={buttonIcon} color={pacientListIconColor} />)}
                 chevron={true}
                 bottomDivider={true}
                 onPress={() => this.handleSelectPacient(item)}
