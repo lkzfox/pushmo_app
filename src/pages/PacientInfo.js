@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import FMT from '../helpers/formater';
 import TextIcon from '../components/TextIcon';
 import Button from '../components/Button';
-import { marginLg } from '../styles/sizes';
+import { marginLg, buttonIcon, marginMd } from '../styles/sizes';
+
+import PacientBackgroundIcon from '../assets/images/pacient_menu_pacient_background.svg';
+import PressureUlcerIcon from '../assets/images/pacient_menu_pressure_ulcer.svg';
+import GraphIcon from '../assets/images/pacient_menu_graph.svg';
+import CameraIcon from '../assets/images/pacient_menu_camera.svg';
+import { whiteIceColor } from '../styles/colors';
 
 
 class PacientInfo extends Component{
@@ -31,23 +37,24 @@ class PacientInfo extends Component{
 
     actionsList = [
         {
-            title: "Historico",
-            iconName: "format-align-justify",
-            onPress: () => this.handle('PacientBackground')
+            title: "Histórico",
+            icon: <PacientBackgroundIcon width={buttonIcon} height={buttonIcon} style={{ marginRight: marginMd }} />,
+            FA: true,
+            onPress: () => this.handle('PacientBackground'),
         },
         {
-            title: "Lesoes",
-            iconName: "local-hospital",
+            title: "Lesões",
+            icon: <PressureUlcerIcon width={buttonIcon} height={buttonIcon} style={{ marginRight: marginMd }} />,
             onPress: () => this.handle('PacientPressureUlcer')            
         },
         {
-            title: "Grafico",
-            iconName: "assessment",
+            title: "Gráfico",
+            icon: <GraphIcon width={buttonIcon} height={buttonIcon} style={{ marginRight: marginMd }} />,
             onPress: () => this.handle('PacientGraph')            
         },
         {
-            title: "Monitoramento Temporal",
-            iconName: "camera-alt",
+            title: "Registros Fotográficos",
+            icon: <CameraIcon width={buttonIcon} height={buttonIcon} style={{ marginRight: marginMd }} />,
             onPress: () => this.handle('PacientPressureUlcerPictures')            
         }
         
@@ -81,6 +88,7 @@ const styles = StyleSheet.create({
     },
     center: {
         flex: 1,
+        backgroundColor: whiteIceColor
     }
 })
 

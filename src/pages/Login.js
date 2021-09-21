@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
-import { View, KeyboardAvoidingView, TextInput, TouchableOpacity, StyleSheet, Text, Keyboard } from 'react-native';
+import { View, KeyboardAvoidingView, TextInput, TouchableOpacity, StyleSheet, Text, Keyboard, Image, ImageBackground } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { padding, marginMd } from '../styles/sizes';
 import { Input } from 'react-native-elements';
 import API from '../services/api';
 import Message from '../components/Message';
+import { padding, paddingMd, paddingLg } from '../styles/sizes';
+import { whiteIceColor, blueTextColor } from '../styles/colors';
+
+
+import background_image from '../assets/images/app_background.png';
+import logo_image from '../assets/images/app_logo.png';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class Login extends Component{
     state = {
@@ -74,14 +80,20 @@ export default class Login extends Component{
 
     render() {
         return (
-            <View style={styles.container}>
+            <ImageBackground source={background_image} style={{ width: '100%', height: '100%' }}>
+                <ScrollView style={styles.container}>
+                <View style={styles.container}>
+                    <View style={styles.header}>
+                        <Image source={logo_image} />
+                        <Text style={styles.title}>PUSHMo</Text>
+                    </View>
                     <View style={styles.center}>
-                        <Text style={styles.title}>PushMo</Text>
                         <Input placeholder='Ex.: email@email.com.br'
                             leftIcon={ <Icon name='mail-outline' size={24} color='black'/> }
                             onChangeText={val => this.handleChange('email', val)} 
                             value={this.state.email}
                             keyboardType="email-address"
+                            onSubmitEditing={() => this.password_field.focus()}
                         />
                         <Input placeholder='senha'
                             leftIcon={ <Icon name='lock' size={24} color='black'/> }
@@ -89,6 +101,8 @@ export default class Login extends Component{
                             value={this.state.password}
                             style={styles.input}
                             secureTextEntry
+                            onSubmitEditing={this.handleLogin}
+                            ref={e => this.password_field = e}
                         />
                         <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
                             <Text style={{textAlign: "center", color: "#FFF", fontWeight: "bold", fontSize: 18}}>ENTRAR</Text>
@@ -106,15 +120,18 @@ export default class Login extends Component{
                         loading={this.state.loading}
                         showButton={true}
                     />
-            </View>
+                </View>
+                </ScrollView>
+            </ImageBackground>
         )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
+        display: 'flex',
+        flexDirection: 'column',
         flex: 1,
-        backgroundColor: "#2ecc71"
     },
     center: {
         flex: 1,
@@ -129,22 +146,23 @@ const styles = StyleSheet.create({
         borderColor: "#000"
     },
     button: {
-        backgroundColor: "#27ae60",
-        borderColor: "#278e60",
-        borderWidth: 2,
+        backgroundColor: "#00008E",
         alignSelf: "stretch",
         textAlign: "center",
         marginVertical: 16,
-        padding: 16
+        padding: 16,
+        borderRadius: 15,
+        elevation: 2
     },
     title: {
         fontSize: 30,
         fontWeight: "bold",
-        marginBottom: 30
+        marginBottom: 30,
+        marginTop: 10
     },
     registerText: {
         textAlign: "center", 
-        color: "#33F", 
+        color: blueTextColor, 
         fontWeight: "bold", 
         fontSize: 18, 
     },
@@ -156,5 +174,17 @@ const styles = StyleSheet.create({
         borderColor: '#cececeaa',
         paddingVertical: 20,
         alignContent: 'flex-end'
+    },
+    header: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: paddingLg,
+        paddingBottom: padding,
+        backgroundColor: whiteIceColor,
+        marginBottom: 10,
+        borderBottomLeftRadius: 50,
+        borderBottomRightRadius: 50,
+        ...this.container,
+        elevation: 2
     }
 })

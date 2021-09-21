@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { View, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { padding, paddingLg } from '../styles/sizes';
+import { padding, paddingLg, marginMd, paddingMd } from '../styles/sizes';
 import { Input } from 'react-native-elements';
 import API from '../services/api';
 import Message from '../components/Message';
 import { ScrollView } from 'react-native-gesture-handler';
+import { whiteIceColor, blueTextColor } from '../styles/colors';
+import PrimaryButton from '../components/PrimaryButton';
+
 
 export default class Register extends Component{
     state = {
@@ -40,10 +43,16 @@ export default class Register extends Component{
         });
 
         API.post('/auth/register', this.state)
-        .then(async res => {
-            this.showMessage("Registro efetuado, você já pode fazer o login!",
+        .then(res => {
+            this.showMessage(`Registro efetuado, você já pode fazer o login!`,
             () => {
-                this.props.navigation.navigate('Login');
+                this.showMessage(`Bem-vindo!
+                
+                Este aplicativo é destinado aos profissionais de saúde que atuam no tratamento de lesão por pressão - LP, visando maior praticidade, agilidade e segurança nas avaliações de LPs, tendo como objetivo principal  o uso da ferramenta da Escala de PUSH- Pressure Úlceras Scale for Healing (autorizada pela NPIAP), onde irá favorecer o acompanhamento de forma sistemática e com base em estudos científicos.
+                `,
+                () => {
+                    this.props.navigation.navigate('Login');
+                })
             })
         })
         .catch(() => {
@@ -75,6 +84,11 @@ export default class Register extends Component{
         this.setState({ isVisible: false });
     }
 
+    goto = field => {
+        let element = this[field];
+        element.focus();
+    }
+
     render() {
         return (
             <ScrollView style={styles.container}>
@@ -82,37 +96,46 @@ export default class Register extends Component{
                     <View style={styles.center}>
                         <Text style={styles.title}>Cadastro</Text>
                         <Input placeholder='Seu nome'
+                            onSubmitEditing={() => this.goto('email')}
                             leftIcon={ <Icon name='person-outline' size={24} color='black'/> }
                             onChangeText={val => this.handleChange('name', val)} 
+                            containerStyle={styles.input}
                             value={this.state.name}
                             />
                         <Input placeholder='Ex.: email@email.com.br'
+                            onSubmitEditing={() => this.goto('password')}
+                            ref={e => this.email = e}
                             leftIcon={ <Icon name='mail-outline' size={24} color='black'/> }
                             onChangeText={val => this.handleChange('email', val)} 
                             value={this.state.email}
+                            containerStyle={styles.input}
                             keyboardType="email-address"
                         />
                         <Input placeholder='senha'
+                            onSubmitEditing={() => this.goto('confirm_password')}
+                            ref={e => this.password = e}
                             leftIcon={ <Icon name='lock' size={24} color='black'/> }
                             onChangeText={val => this.handleChange('password', val)} 
                             value={this.state.password}
-                            style={styles.input}
+                            containerStyle={styles.input}
                             secureTextEntry
                         />
                         <Input placeholder='confirmar senha'
+                            onSubmitEditing={this.handleRegister}
+                            ref={e => this.confirm_password = e}
                             leftIcon={ <Icon name='lock' size={24} color='black'/> }
                             onChangeText={val => this.handleChange('passwordConfirmation', val)} 
                             value={this.state.passwordConfirmation}
-                            style={styles.input}
+                            containerStyle={styles.input}
                             secureTextEntry
                         />
-                        <TouchableOpacity style={styles.button} onPress={this.handleRegister}>
-                            <Text style={{textAlign: "center", color: "#FFF", fontWeight: "bold", fontSize: 18}}>Cadastrar</Text>
-                        </TouchableOpacity>
+                        <PrimaryButton buttonstyle={styles.button} onPress={this.handleRegister} title="Cadastrar"/>
+                        
                     </View>
                         <TouchableOpacity style={{padding: paddingLg, marginTop: 16}} onPress={this.handleBack}>
-                            <Text style={{textAlign: "center", color: "#FFF", fontWeight: "bold", fontSize: 14}}>Voltar</Text>
+                            <Text style={{textAlign: "center", color: blueTextColor, fontWeight: "bold", fontSize: 18}}>Voltar</Text>
                         </TouchableOpacity>
+
                     
                     <Message 
                         onButtonPress={this.state.messageCB} 
@@ -131,7 +154,7 @@ export default class Register extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#2ecc71"
+        backgroundColor: whiteIceColor
     },
     center: {
         flex: 1,
@@ -140,28 +163,20 @@ const styles = StyleSheet.create({
         paddingHorizontal: padding
     },
     input: {
-        borderWidth: 1,
-        alignSelf: "stretch",
-        marginVertical: 16,
-        borderColor: "#000"
+        marginVertical: marginMd,
     },
     button: {
-        backgroundColor: "#27ae60",
-        borderColor: "#278e60",
-        borderWidth: 2,
-        alignSelf: "stretch",
-        textAlign: "center",
-        marginVertical: 16,
-        padding: 16
+        marginVertical: marginMd,
+        padding: padding
     },
     title: {
         fontSize: 30,
         fontWeight: "bold",
-        marginBottom: 30
+        paddingVertical: paddingMd,
     },
     registerText: {
         textAlign: "center", 
-        color: "#33F", 
+        color: blueTextColor, 
         fontWeight: "bold", 
         fontSize: 18, 
     },

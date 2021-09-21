@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, FlatList, StyleSheet, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage'
 import { connect } from 'react-redux';
 import * as actions from '../actions';
@@ -9,8 +9,9 @@ import API from '../services/api';
 import FMT from '../helpers/formater';
 import Footer from '../components/Footer';
 import { buttonIcon } from '../styles/sizes';
-import { fontColor, pacientListIconColor } from '../styles/colors';
+import { fontColor, pacientListIconColor, whiteIceColor, buttonColor, primaryButtonStartColor } from '../styles/colors';
 import MessageYN from '../components/MessageYN';
+import background_image from '../assets/images/app_background.png';
 
 class PacientsList extends Component {
     static navigationOptions = {
@@ -98,31 +99,34 @@ class PacientsList extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <View style={styles.container}>
-                        <SearchBar
-                            placeholder="Buscar nome/cpf..."
-                            onChangeText={this.handleChange}
-                            value={this.state.search}
-                            showLoading={this.state.isLoading}
-                            lightTheme={true}
-                            loadingProps={{
-                                color: fontColor,
-                                size: buttonIcon
-                            }}
-                            inputStyle={{color: fontColor}}
-                        />
-                    </View>
-                    <View>
-                        <TouchableOpacity onPress={this.onPress} style={{ display: 'flex', alignContent: 'center', padding: 2 }}>
-                            <Icon
-                                name='exit-to-app'
-                                size={60}
-                                style={{ justifyContent: 'center' }}
-                                color={'grey'}
-                                ref={this.onRef} />
-                        </TouchableOpacity>
-                    </View>
+                <View style={{ height: 58 }}>
+                    <ImageBackground source={background_image} style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'row', }}>
+                        <View style={styles.container}>
+                            <SearchBar
+                                placeholder="Buscar nome/cpf..."
+                                onChangeText={this.handleChange}
+                                value={this.state.search}
+                                showLoading={this.state.isLoading}
+                                lightTheme={true}
+                                loadingProps={{
+                                    color: fontColor,
+                                    size: buttonIcon
+                                }}
+                                inputStyle={{color: fontColor}}
+                                containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
+                            />
+                        </View>
+                        <View>
+                            <TouchableOpacity onPress={this.onPress} style={{ display: 'flex', alignContent: 'center', padding: 2 }}>
+                                <Icon
+                                    name='exit-to-app'
+                                    size={50}
+                                    style={{ justifyContent: 'center' }}
+                                    color={'white'}
+                                    ref={this.onRef} />
+                            </TouchableOpacity>
+                        </View>
+                    </ImageBackground>
                 </View>
                 <View style={styles.list}>
                     <FlatList
@@ -147,7 +151,8 @@ class PacientsList extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: "column"
+        flexDirection: "column",
+        backgroundColor: 'transparent'
     },
     list: {
         flex: 1,

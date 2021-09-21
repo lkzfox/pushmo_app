@@ -57,7 +57,7 @@ class EntryInfo extends Component {
                         this.mountPrettyOptions(entry.OptionPushes).map( ({description, id, options}, idx) => {
                             return (
                                 <View key={id}>
-                                    <Text>{description}:</Text>
+                                    <Text style={{ fontWeight: 'bold'}}>{description}:</Text>
                                     {
                                         options.map((value, idx2) => <Text key={idx2} style={{ marginLeft: marginLg}}>{value}</Text>)
                                     }
@@ -65,9 +65,9 @@ class EntryInfo extends Component {
                             )
                         })
                     }
-                    {entry.AdditionalInfo.used_bandage && <Text>Curativo Utilizado: {entry.AdditionalInfo.used_bandage}</Text>}
-                    {entry.AdditionalInfo.change_ratio && <Text>Frequência de Troca: {entry.AdditionalInfo.change_ratio}</Text>}
-                    {entry.AdditionalInfo.others && <Text>Outras Informações: {entry.AdditionalInfo.others}</Text>}
+                    {!!entry.AdditionalInfo && !!entry.AdditionalInfo.used_bandage && <Text>Curativo Utilizado: {entry.AdditionalInfo.used_bandage}</Text>}
+                    {!!entry.AdditionalInfo && !!entry.AdditionalInfo.change_ratio && <Text>Frequência de Troca: {entry.AdditionalInfo.change_ratio}</Text>}
+                    {!!entry.AdditionalInfo && !!entry.AdditionalInfo.others && <Text>Outras Informações: {entry.AdditionalInfo.others}</Text>}
 
                 </View>
             </ScrollView>

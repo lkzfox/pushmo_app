@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 import { buttonColor, placeholderColor } from '../styles/colors';
 import Input from '../components/Input';
+import ImageTakeAndPreview from '../components/ImageTakeAndPreview';
 
 class PressureUlcerRegister extends Component{
     static navigationOptions = {
@@ -135,44 +136,10 @@ class PressureUlcerRegister extends Component{
             <>
                 <ScrollView>
                 <KeyboardAvoidingView behavior="padding" style={styles.container}>                    
-                    { this.props.takenPicture != '' && 
-                        <View style={{alignItems: "center", marginTop: marginMd}}>
-                            <Image style={{height: 200, width: 200}} source={{ uri: this.props.takenPicture }} />
-                            <TouchableOpacity onPress={this.deleteImage} style={{
-                                    position: "absolute",
-                                    top: 0,
-                                    right: 0,
-                                    padding: 4,
-                                    backgroundColor: placeholderColor,
-                                    borderRadius: 50
-                                }}>
-                                <Icon name="delete" size={30} color="#000" />
-                            </TouchableOpacity>
-                        </View>
-                    }                   
+                    <View style={{...styles.center2, alignSelf: 'center'}}>
+                        <ImageTakeAndPreview navigation={this.props.navigation}/>
+                    </View>
                     <View style={styles.center2}>
-                        <TouchableOpacity onPress={this.handleCamera} 
-                            style={{ flexWrap: "wrap",
-                            margin: marginMd,
-                            alignSelf: "center"}}>
-                            <View style={{
-                                flex: 0, 
-                                flexDirection: "row", 
-                                flexWrap: "wrap", 
-                                alignItems: "center",  
-                                alignSelf: "flex-start",
-                                justifyContent: "center",
-                                padding: 2,
-                                paddingHorizontal: 8,
-                                borderRadius: 10,
-                                backgroundColor: buttonColor,
-                            }} >
-                                <Icon name="camera-alt" size={40} color="#000" style={{paddingRight: 8, borderRightWidth: 1,
-                                        borderRightColor: placeholderColor,
-                                    }} />
-                                <Text style={{fontSize: 20, fontWeight: "bold", marginLeft: marginMd}} >Capturar Imagem</Text>
-                            </View>
-                        </TouchableOpacity>
                         <Text style={{fontSize: 20, fontWeight: "bold", padding: 10}}>Escala de PUSH</Text>
                         <Input
                             label="Comprimento (cm)"

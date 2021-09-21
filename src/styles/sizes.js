@@ -1,9 +1,12 @@
 export const font = 16;
-export const buttonFont = 20;
+export const fontLg = 20;
+export const buttonFont = 25;
 export const buttonIcon = 32;
 export const icon = 24;
 export const padding = 16;
+export const paddingMd = 24;
+export const paddingLg = 32;
 export const marginMd = 8;
 export const marginLg = 16;
 export const messageTitle = 28;
-export const message = 18;
+export const message = 16;

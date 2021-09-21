@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { placeholderColor } from '../styles/colors';
 import { marginLg, padding, font, marginMd } from '../styles/sizes';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default props => {
     return (
@@ -14,11 +14,11 @@ export default props => {
                     <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                         <View style={styles.grayed}>
                             <Text style={styles.title}>{props.title}</Text>
-                            <Text>Localizacao: {props.ulcerLocation}</Text>
-                            <Text>Estagio: {props.ulcerStage}</Text>
+                            <Text>Localização: {props.ulcerLocation}</Text>
+                            <Text>Estágio: {props.ulcerStage}</Text>
                         </View>
                         <View style={{display: "flex", alignItems: 'center', padding: padding}}>
-                            <Icon name="arrow-forward" 
+                            <Icon name="arrow-right" 
                                 size={40} 
                                 color="#000"
                             /> 

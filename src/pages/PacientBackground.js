@@ -15,9 +15,6 @@ import Message from '../components/Message';
 
  
 class PacientBackground extends Component {
-    static navigationOptions = {
-        title: 'Histórico Clinico'
-    }
 
     state = {
         isLoading: false,
@@ -88,7 +85,7 @@ class PacientBackground extends Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <ListItem key={i} leftIcon={<TextIcon name="person"/>} title={this.props.selectedPacient.name} />
+                <ListItem leftIcon={<TextIcon name="person"/>} title={this.props.selectedPacient.name} />
                 <View style={styles.content}>
                     {
                         this.questions.map((question, i) => {

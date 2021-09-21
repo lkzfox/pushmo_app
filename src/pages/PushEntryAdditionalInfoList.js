@@ -9,7 +9,7 @@ import Button from '../components/Button';
 
 class PressureUlcerEntriesList extends Component {
     static navigationOptions = {
-        title: "Informacoes Adicionais"
+        title: "Informações Adicionais"
     }
 
     state = {

@@ -8,7 +8,7 @@
         }
     },
     {
-        "question": "Antecedntes alérgicos",
+        "question": "Antecedentes alérgicos",
         "state": "allergic",
         "obs": {
             "placeholder": "Quais",
@@ -20,7 +20,7 @@
         "state": "pacemaker"
     },
     {
-        "question": "Alterações cardiacas",
+        "question": "Alterações cardíacas",
         "state": "cardiac_change",
         "obs": {
             "placeholder": "Quais",
@@ -68,7 +68,7 @@
         }
     },
     {
-        "question": "Eplepsia-convulsões",
+        "question": "Epilepsia-convulsões",
         "state": "convulsion",
         "obs": {
             "placeholder": "Frequência",
@@ -114,5 +114,13 @@
             "placeholder": "Qual",
             "state": "disease_obs"
         }
+    },
+    {
+        "question": "Tabagista",
+        "state": "smoker"
+    },
+    {
+        "question": "Etilista",
+        "state": "drinker"
     }
 ]

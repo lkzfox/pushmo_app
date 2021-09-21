@@ -19,10 +19,32 @@ import PacientGraph from './pages/PacientGraph';
 import PacientPressureUlcerPictures from './pages/PacientPressureUlcerPictures';
 import PressureUlcerPicturesList from './pages/PressureUlcerPicturesList';
 import EntryInfo from './pages/EntryInfo';
+import { Image } from 'react-native';
+
+import register_pacient from './assets/images/register_pacient.png'
+import background_pacient from './assets/images/background_pacient.png'
+import pressure_ulcer_pacient from './assets/images/pressure_ulcer_pacient.png'
+import { marginMd } from './styles/sizes';
+import HeaderGradient from './components/HeaderGradient'
 
 const PacientInfoNavigationOptions = ({ navigation }) => ({
-    headerLeft: <HeaderBackButton onPress={() => navigation.popToTop()} />,
-    title: 'Menu do Paciente'
+    headerLeft: <HeaderBackButton onPress={() => navigation.popToTop()} tintColor='#fff'/>,
+    title: 'Paciente',
+})
+
+const PacientRegisterNavigationOptions = ({ navigation }) => ({
+    title: 'Cadastro de Paciente',
+    headerRight: <Image source={ register_pacient } style={{ width: 50, height: 50, marginRight: marginMd }} />,
+})
+
+const PacientBackgroundNavigationOptions = ({ navigation }) => ({
+    title: 'Histórico Clínico',
+    headerRight: <Image source={ background_pacient } style={{ width: 50, height: 50, marginRight: marginMd }} />,
+})
+
+const PacientPressureUlcerNavigationOptions = ({ navigation }) => ({
+    title: 'Cadastro de Lesão',
+    headerRight: <Image source={ pressure_ulcer_pacient } style={{ width: 50, height: 50, marginRight: marginMd }} />,
 })
 
 
@@ -31,14 +53,23 @@ const Routes = createAppContainer(
         Login,
         LoggedRoutes: createStackNavigator({
             PacientsList,
-            PacientRegister,
             PacientInfo: {
                 screen: PacientInfo,
                 navigationOptions: PacientInfoNavigationOptions
             },
-            PacientBackground,
+            PacientRegister: {
+                screen: PacientRegister,
+                navigationOptions: PacientRegisterNavigationOptions
+            },
+            PacientBackground: {
+                screen: PacientBackground,
+                navigationOptions: PacientBackgroundNavigationOptions
+            },
             PacientPressureUlcer,
-            PressureUlcerRegister,
+            PressureUlcerRegister: {
+                screen: PressureUlcerRegister,
+                navigationOptions: PacientPressureUlcerNavigationOptions
+            },
             Camera,
             PushEntriesList,
             PushEntryRegister,
@@ -49,6 +80,18 @@ const Routes = createAppContainer(
             PacientPressureUlcerPictures,
             PressureUlcerPicturesList,
             EntryInfo
+        },
+        {
+            defaultNavigationOptions: {    
+                header: props => <HeaderGradient {...props}/>,
+                headerStyle: {
+                    backgroundColor: 'transparent',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                },
+            }
         }),
         Register
     })

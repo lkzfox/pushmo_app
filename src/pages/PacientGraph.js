@@ -14,7 +14,7 @@ import Swiper from 'react-native-swiper'
 
 class PacientGraph extends Component{
     static navigationOptions = {
-        title: "Grafico das Lesoes"
+        title: "Gráfico das Lesões"
     }
 
     currentDate = new Date();
@@ -44,7 +44,6 @@ class PacientGraph extends Component{
         API.post(`/pressure_ulcer/pacient/${this.props.selectedPacient.id}/entries`, data)
         .then(res => {
             this.setState({ charts: res.data, loading: false })
-            console.log(res.data);
             
             // this.setState({
             //     locations: res.data.locations, 
@@ -99,7 +98,7 @@ class PacientGraph extends Component{
                     }}
                 />
                 <Text style={{textAlign: "center", fontSize: font, paddingTop: padding}}>
-                    Lesao 0{key+1}
+                    Lesão 0{key+1}
                 </Text>
             </View>
         )

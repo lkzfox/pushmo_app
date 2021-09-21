@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { View, TouchableOpacity, StyleSheet, Text, Image, CameraRoll } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import * as actions from '../actions';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { buttonIcon } from '../styles/sizes';
+import { buttonIconColor } from '../styles/colors';
 
 class Camera extends Component {
     static navigationOptions = {
@@ -36,7 +39,6 @@ class Camera extends Component {
               />
               <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={this.takePicture} style={styles.capture}>
-                  <Text style={styles.buttonText}> CAPTURAR </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -60,11 +62,11 @@ class Camera extends Component {
                     style={styles.preview}
                 />
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity onPress={this.handleSaveImage} style={styles.capture}>
-                        <Text style={styles.buttonText}> SALVAR </Text>
+                    <TouchableOpacity onPress={this.handleSaveImage} style={styles.captureOk}>
+                        <Icon name='done' size={buttonIcon} color={buttonIconColor}  />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.handleCancel} style={styles.capture}>
-                        <Text style={styles.buttonText}> Cancelar </Text>
+                    <TouchableOpacity onPress={this.handleCancel} style={styles.captureCancel}>
+						<Icon name='cancel' size={buttonIcon} color={buttonIconColor} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -95,15 +97,32 @@ class Camera extends Component {
     capture: {
       flex: 0,
       backgroundColor: "#fff",
-      borderRadius: 5,
-      padding: 15,
-      paddingHorizontal: 20,
+	  borderRadius: 50,
+	  borderWidth: 2,
+	  borderColor: '#9e9e9e',
+      padding: 30,
       alignSelf: "center",
       margin: 20
     },
     buttonText: {
       fontSize: 14
-    }
+	},
+	captureOk: {
+		flex: 0,
+		backgroundColor: "#20ca50",
+		borderRadius: 50,
+		padding: 10,
+		alignSelf: "center",
+		margin: 20
+	},
+	captureCancel: {
+		flex: 0,
+		backgroundColor: "#ca3020",
+		borderRadius: 50,
+		padding: 15,
+		alignSelf: "center",
+		margin: 20
+	},
   });
 
   export default connect(null, actions)(Camera);

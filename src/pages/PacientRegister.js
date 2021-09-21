@@ -11,9 +11,6 @@ import Message from '../components/Message';
 
 
 class PacientRegister extends Component{
-    static navigationOptions = {
-        title: "Cadastro de Paciente"
-    }
 
     state = {
         name:'',

@@ -10,10 +10,10 @@ export default (props) => {
     return (
         <Overlay           
             windowBackgroundColor="#dedede69"
-            overlayBackgroundColor="transparent"
+            overlayStyle={{ borderRadius: 5, backgroundColor: "#58b1cb", height: '60%' }}
             {...props}
         >
-            <View style={{display: 'flex', flexDirection: 'column', backgroundColor: '#0071bd', borderRadius: 5, paddingBottom: paddingMd}}>
+            <View style={{display: 'flex', flexDirection: 'column', flex: 1, paddingBottom: paddingMd}}>
                 <View style={styles.container}>
                     <Text style={styles.title}>{props.title}</Text>
                         {props.message && (
@@ -24,13 +24,13 @@ export default (props) => {
                         )}
                 </View>
                 <View style={{ 
-                    flexBasis: '15%', 
+                    flex: 1,
                     flexDirection: 'row', 
                     justifyContent: 'space-around', 
                     padding: paddingMd
                 }}>   
-                    <Button title="Sim" onPress={props.yesFunction} buttonStyle={{backgroundColor: buttonColor, ...styles.button}} />
-                    <Button title="Não" onPress={props.noFunction} buttonStyle={{backgroundColor: '#d10d1a', ...styles.button}} />
+                    <Button title="Sim" onPress={props.yesFunction} buttonStyle={{backgroundColor: '#178a17', ...styles.button}} />
+                    <Button title="Não" onPress={props.noFunction} buttonStyle={{backgroundColor: '#cd1020', ...styles.button}} />
                 </View>
             </View>
     </Overlay>
@@ -40,7 +40,7 @@ export default (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        flexBasis: '50%',
+        flex: 2,
         marginLeft: marginLg,
         marginRight: marginLg
     },
@@ -68,5 +68,9 @@ const styles = StyleSheet.create({
     },
     button: {
         paddingHorizontal: 20,
+        elevation: 2,
+        borderColor: '#aeaeae',
+        borderBottomWidth: 2,
+        borderRightWidth: 2
     },
 });

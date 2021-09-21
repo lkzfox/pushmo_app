@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Overlay, Text } from "react-native-elements";
-import { placeholderColor, fontColor } from "../styles/colors";
+import { placeholderColor, fontColor, primaryButtonStartColor, whiteIceColor } from "../styles/colors";
 import { messageTitle, marginMd, font, marginLg, buttonFont, message } from '../styles/sizes';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Footer from './Footer';
@@ -10,12 +10,12 @@ export default (props) => {
     return (
         <Overlay           
             windowBackgroundColor="#dedede69"
-            overlayBackgroundColor="#f39c12"
+            overlayStyle={{ borderRadius: 5, backgroundColor: "#58b1cb", height: '60%' }}
             {...props}
         >
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, borderRadius: 20}}>
                 <View style={styles.container}>
-                    <Text style={styles.title}>{props.title}</Text>
+                    {props.title && <Text style={styles.title}>{props.title}</Text>}
                         {props.message && (
                             <View style={!props.messageList && styles.center}>
                                 {props.loading && <ActivityIndicator size="large" color={fontColor} />}
@@ -33,7 +33,7 @@ export default (props) => {
                         )}
                 </View>
                 {
-                    !!props.showButton && <Footer title="OK" onPress={props.onButtonPress} buttonStyle={{backgroundColor: "#000"}} />
+                    !!props.showButton && <Footer title="OK" onPress={props.onButtonPress} />
                 }
             </View>
     </Overlay>
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         marginLeft: marginLg,
         marginRight: marginLg,
+        borderRadius: 20
     },
     center: {
         flex: 1,
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
     },
     message: {
         fontSize: message,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        textAlign: 'justify'
     }
 });

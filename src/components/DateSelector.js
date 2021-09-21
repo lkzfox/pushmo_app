@@ -55,13 +55,12 @@ export default class DateSelector extends React.Component {
                     <Icon
                         name='event'
                         size={buttonIcon}
-                        color='black'
+                        color={buttonColor}
                         style={{
                             borderColor: placeholderColor,
                             borderRightWidth: 1,
                             paddingRight: 2,
-                            backgroundColor: buttonColor,
-                            margin: -2
+                            margin: -2,
                         }}
                     />
                     <Text style={styles.date}>{this.state.dateLabel}</Text>
@@ -104,6 +103,6 @@ const styles = StyleSheet.create({
         borderColor: placeholderColor,
         borderWidth: 1,
         borderRadius: 4,
-        padding: 2,
+        padding: 5,
     }
 })
