@@ -13,7 +13,7 @@
     "debug": "^4.1.1",
     "emoji-regex": "^8.0.0",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.26",
+    "moment-timezone": "^0.5.35",
     "react": "^16.8.6",
     "react-native": "0.60.5",
     "react-native-calendars": "^1.212.0",
